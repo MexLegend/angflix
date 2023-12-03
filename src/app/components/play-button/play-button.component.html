@@ -1,0 +1,19 @@
+<button
+  class="flex place-items-center py-2 px-6 rounded-full bg-fuchsia-500 text-white font-semibold transition-all duration-200 hover:bg-fuchsia-600 active:scale-95"
+  [ngClass]="{ 'px-2': !showLabel }"
+  [routerLink]="['/movie/' + movie.id]"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    fill="currentColor"
+    class="bi bi-play-fill w-7 h-7"
+    viewBox="0 0 16 16"
+  >
+    <path
+      d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"
+    />
+  </svg>
+  <span *ngIf="showLabel">Play</span>
+</button>

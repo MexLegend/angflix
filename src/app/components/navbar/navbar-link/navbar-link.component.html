@@ -1,0 +1,31 @@
+<li
+  class="font-semibold min-w-[90px] h-[calc(100%-28px)] my-auto tracking-wider text-sm hide-on-med-and-down text-white/80 hover:text-white flex transition-all duration-200 items-center justify-center active:scale-95 border-b-[3px] border-b-transparent"
+  [ngClass]="{
+        '!text-white font-bold !border-b-fuchsia-500': activeRoute === routerLink,
+        'translate-y-2/4 delay-[350ms] opacity-0 ease-out max-w-max px-4 mx-auto': direction === 'Vertical',
+        '!opacity-100 !translate-y-0 delay-[var(--delay)]': direction === 'Vertical' && isOpen?.()
+    }"
+  [style.transition-delay]="direction === 'Vertical' && isOpen?.()
+        ? index === 0 
+            ? '300ms' 
+            : 300 + (150 * index) + 'ms' 
+        : ''
+    "
+>
+  <a
+    class="flex items-center justify-center w-full h-full"
+    [routerLink]="routerLink"
+    (click)="handleSetOpen()"
+  >
+    <span
+      *ngIf="label"
+      class="text-base"
+      [ngClass]="{
+        '!text-2xl max-sm:!text-base text-center': direction === 'Vertical'
+      }"
+    >
+      {{ label }}
+    </span>
+    <ng-content></ng-content>
+  </a>
+</li>

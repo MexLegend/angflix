@@ -1,0 +1,11 @@
+<app-container>
+  <section *ngIf="movie()" class="flex flex-col w-full mt-28 mb-12">
+    <app-movie-details [movie]="movie()!" />
+    <app-movie-trailer class="w-full" [movie]="movie()!" />
+    <app-category-section
+      class="mt-4"
+      title="You may also like"
+      [movies]="[movie()!]"
+    />
+  </section>
+</app-container>

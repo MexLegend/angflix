@@ -1,0 +1,20 @@
+<ul
+  class="flex flex-1 gap-2 items-center justify-center h-full"
+  [ngClass]="{
+    'max-lg:hidden': hideOnMobile,
+    'flex-col w-full text-center text-2xl gap-8 max-sm:gap-4':
+      direction === 'Vertical'
+  }"
+>
+  <app-navbar-link
+    class="h-full flex"
+    [ngClass]="{ 'w-full': direction === 'Vertical' }"
+    [routerLink]="publicNavLink.route"
+    [label]="publicNavLink.label"
+    [activeRoute]="activeRoute"
+    [direction]="direction"
+    [index]="i"
+    [isOpen]="isOpen"
+    *ngFor="let publicNavLink of publicNavLinks; let i = index"
+  />
+</ul>

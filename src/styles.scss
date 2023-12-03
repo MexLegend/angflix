@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+    @apply scroll-smooth bg-dark-blue;
+}
+
+::-webkit-scrollbar {
+    @apply h-[10px] w-[10px] bg-dark-blue mx-[10px];
+}
+
+::-webkit-scrollbar-thumb {
+    @apply border-[3px] rounded-lg bg-fuchsia-600 border-fuchsia-600;
+}
+
+@font-face {
+    font-family: "Pocket Monk";
+    src: url("../src/assets/fonts/Pocket-Monk.otf");
+}
+
+@font-face {
+    font-family: "Roboto Slab";
+    src: url("./assets/fonts/RobotoSlab.ttf");
+}

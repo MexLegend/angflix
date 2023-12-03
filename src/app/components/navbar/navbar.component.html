@@ -1,0 +1,45 @@
+<nav
+  #navbar
+  class="transition-all duration-200 z-[997] fixed top-0 left-0 h-20 w-full flex bg-gradient-to-b from-black to-transparent"
+  [ngClass]="{
+    'bg-opacity-90 !border-b-fuchsia-300/10': isScrolling,
+    'bg-transparent': !isScrolling
+  }"
+>
+  <app-container class="w-full">
+    <div class="flex w-full h-20 items-center justify-between">
+      <div class="flex items-center gap-3 max-sm:gap-2">
+        <button
+          class="lg:hidden active:scale-95 group rounded-full w-10 min-w-[2.5rem] h-10 min-h-[2.5rem] transition-all duration-200 hover:bg-fuchsia-600"
+          (click)="handleShowNavbarMenu()"
+        >
+          <i
+            class="text-lg navigation-modal-trigger-icon text-white/80 transition-all duration-200 group-hover:text-haizenBlue-500"
+            [ngClass]="isNavbarMenuOpen() ? 'fas fa-times' : 'fas fa-bars'"
+          >
+          </i>
+        </button>
+        <button
+          class="flex site-logo active:scale-95 transition-all duration-200"
+          routerLink="/"
+        >
+          <app-logo />
+        </button>
+        <app-navbar-menu
+          class="lg:hidden"
+          [activeRoute]="router.url"
+          [isOpen]="isNavbarMenuOpen"
+        >
+        </app-navbar-menu>
+      </div>
+      <div class="flex h-full place-content-center gap-6">
+        <app-navbar-links
+          class="h-full max-lg:hidden"
+          [activeRoute]="router.url"
+          [isOpen]="isNavbarMenuOpen"
+        />
+        <app-navbar-search />
+      </div>
+    </div>
+  </app-container>
+</nav>

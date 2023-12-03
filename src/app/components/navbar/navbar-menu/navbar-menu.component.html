@@ -1,0 +1,18 @@
+<section
+  class="fixed left-0 top-0 items-end justify-end h-screen w-screen transition duration-300 ease-in -z-10 -translate-y-full bg-dark-blue"
+  [ngClass]="{ '!translate-y-0': isOpen() }"
+>
+  <div class="flex items-center flex-col justify-center w-full py-24 h-full">
+    <div class="flex items-center justify-center w-full h-full">
+      <div class="w-full h-full gap-4 text-center">
+        <app-navbar-links
+          class="w-full h-full"
+          [activeRoute]="activeRoute"
+          direction="Vertical"
+          [isOpen]="isOpen"
+          [hideOnMobile]="false"
+        />
+      </div>
+    </div>
+  </div>
+</section>

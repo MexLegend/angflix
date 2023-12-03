@@ -1,0 +1,35 @@
+<div class="flex gap-10 w-full mb-14">
+  <picture class="w-60 min-w-[15rem] aspect-[2/3] rounded-lg overflow-hidden">
+    <img
+      class="w-full h-full object-cover"
+      [src]="movie.thumbnail"
+      [alt]="movie.title"
+    />
+  </picture>
+  <div class="flex flex-col gap-3">
+    <h4 class="text-white text-4xl font-bold mb-3">{{ movie.title }}</h4>
+    <div class="flex gap-5 place-items-center-center">
+      <div class="flex items-center gap-2">
+        <app-rating-stars
+          class="mt-[2px]"
+          [initialStars]="movieRating()"
+          [wholeStars]="false"
+        />
+        <span class="text-fuchsia-200 text-xl font-bold">{{
+          movieRating() | number : "1.1"
+        }}</span>
+      </div>
+      <app-watchlist-button />
+    </div>
+    <p class="text-white/80 text">{{ movie.description }}</p>
+    <app-movie-details-tag label="Duration" [description]="movie.duration" />
+    <app-movie-details-tag
+      label="Released Date"
+      [description]="movie.releasedDate"
+    />
+    <app-movie-details-tag
+      label="Genre"
+      [description]="movie.genre.join(', ')"
+    />
+  </div>
+</div>
