@@ -30,6 +30,18 @@ $ pnpm start
 $ npm run start
 ```
 
+## Running end-to-end tests
+
+```sh
+$ pnpm start:host
+# or
+$ npm run start:host
+
+$ pnpm test:cypress
+# or
+$ npm test:cypress
+```
+
 ## Built With
 
 - Angular 16
