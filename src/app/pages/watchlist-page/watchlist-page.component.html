@@ -6,5 +6,9 @@
       [movies]="watchList"
       [showSortSelect]="true"
     />
+    <div *ngIf="!watchList().length" class="flex flex-col gap-10">
+      <strong class="text-3xl text-white">No movies in your watchlist yet!</strong>
+      <p class="text-xl text-white/80">Start adding movies to watch later.</p>
+    </div>
   </app-container>
 </section>
