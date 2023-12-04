@@ -6,7 +6,6 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'pocket-monk': ['Pocket Monk', 'sans-serif'],
         'roboto-slab': ['Roboto Slab', 'sans-serif'],
       },
       colors: {

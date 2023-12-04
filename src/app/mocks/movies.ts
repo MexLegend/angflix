@@ -11,7 +11,7 @@ export const moviesList: Movie[] = [
     genre: ['Action', 'Sci-Fi'],
     releasedDate: '3 September 2020',
     trailerLink: 'https://www.youtube.com/watch?v=LdOM0x0XDMo',
-    thumbnail: 'assets/images/thumbnails/Tenet.png',
+    thumbnail: 'assets/images/thumbnails/Tenet.webp',
   },
   {
     id: '2',
@@ -23,7 +23,7 @@ export const moviesList: Movie[] = [
     genre: ['Action', 'Animation', 'Adventure'],
     releasedDate: '14 December 2018',
     trailerLink: 'https://www.youtube.com/watch?v=tg52up16eq0',
-    thumbnail: 'assets/images/thumbnails/Spider_Man.png',
+    thumbnail: 'assets/images/thumbnails/Spider_Man.webp',
   },
   {
     id: '3',
@@ -35,7 +35,7 @@ export const moviesList: Movie[] = [
     genre: ['Comedy', 'Crime', 'Drama'],
     releasedDate: '27 November 2019',
     trailerLink: 'https://www.youtube.com/watch?v=qGqiHJTsRkQ',
-    thumbnail: 'assets/images/thumbnails/Knives_Out.png',
+    thumbnail: 'assets/images/thumbnails/Knives_Out.webp',
   },
   {
     id: '4',
@@ -47,7 +47,7 @@ export const moviesList: Movie[] = [
     genre: ['Action', 'Adventure', 'Comedy'],
     releasedDate: '1 August 2014',
     trailerLink: 'https://www.youtube.com/watch?v=d96cjJhvlMA',
-    thumbnail: 'assets/images/thumbnails/Guardians_of_The_Galaxy.png',
+    thumbnail: 'assets/images/thumbnails/Guardians_of_The_Galaxy.webp',
   },
   {
     id: '5',
@@ -59,6 +59,6 @@ export const moviesList: Movie[] = [
     genre: ['Action', 'Adventure', 'Sci-Fi'],
     releasedDate: '1 May 2015',
     trailerLink: 'https://www.youtube.com/watch?v=tmeOjFno6Do',
-    thumbnail: 'assets/images/thumbnails/Avengers.png',
+    thumbnail: 'assets/images/thumbnails/Avengers.webp',
   },
 ];

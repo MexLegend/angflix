@@ -24,6 +24,7 @@ import {
   styleUrls: ['./navbar-search.component.scss'],
 })
 export class NavbarSearchComponent {
+  @Input() isNavbarMenuOpen!: WritableSignal<boolean>;
   @Input() isFloatingSearch: WritableSignal<boolean> = signal(false);
 
   @ViewChild('searchInput') searchInput!: ElementRef;
@@ -79,6 +80,7 @@ export class NavbarSearchComponent {
   }
 
   toogleFloatingSearch() {
+    this.isNavbarMenuOpen.set(false);
     this.isFloatingSearch.set(!this.isFloatingSearch());
   }
 }

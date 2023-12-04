@@ -15,6 +15,7 @@
         <button
           class="flex site-logo active:scale-95 transition-all duration-200"
           routerLink="/"
+          (click)="isNavbarMenuOpen.set(false)"
         >
           <app-logo />
         </button>
@@ -31,7 +32,10 @@
           [activeRoute]="router.url"
           [isOpen]="isNavbarMenuOpen"
         />
-        <app-navbar-search class="flex h-full" />
+        <app-navbar-search
+          class="flex h-full"
+          [isNavbarMenuOpen]="isNavbarMenuOpen"
+        />
       </div>
     </div>
   </app-container>
