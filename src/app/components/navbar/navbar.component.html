@@ -1,9 +1,11 @@
 <nav
   #navbar
-  class="transition-all duration-200 z-[997] fixed top-0 left-0 h-20 w-full flex bg-gradient-to-b from-black to-transparent"
+  class="transition-all duration-200 z-[997] fixed top-0 left-0 h-20 w-full flex border-b"
   [ngClass]="{
-    'bg-opacity-90 !border-b-fuchsia-300/10': isScrolling,
-    'bg-transparent': !isScrolling
+    'bg-dark-blue/75 border-b-fuchsia-300/10': isScrolling,
+    'border-b-transparent': !isScrolling,
+    'bg-gradient-to-b from-black to-transparent':
+      !isScrolling && router.url === '/movies'
   }"
 >
   <app-container class="w-full">
@@ -38,7 +40,7 @@
           [activeRoute]="router.url"
           [isOpen]="isNavbarMenuOpen"
         />
-        <app-navbar-search />
+        <app-navbar-search class="flex h-full" />
       </div>
     </div>
   </app-container>

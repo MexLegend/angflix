@@ -1,4 +1,10 @@
-import { Component, Input, Signal, computed } from '@angular/core';
+import {
+  Component,
+  Input,
+  Signal,
+  WritableSignal,
+  computed,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Movie } from 'src/app/interfaces/movie';
@@ -11,7 +17,7 @@ import { Movie } from 'src/app/interfaces/movie';
   styleUrls: ['./movie-trailer.component.scss'],
 })
 export class MovieTrailerComponent {
-  @Input() movie!: Movie;
+  @Input() movie!: Signal<Movie> | WritableSignal<Movie | null>;
   @Input() expanded: boolean = false;
   @Input() autoplay: boolean = false;
   @Input() loop: boolean = false;
@@ -24,6 +30,10 @@ export class MovieTrailerComponent {
 
   constructor(private sanitizer: DomSanitizer) {}
 
+  /**
+   * Retrieves the secure YouTube movie trailer URL with configurable options.
+   * @returns Secure URL of the YouTube movie trailer with playback options.
+   */
   getYouTubeMovieTrailerUrl(): SafeResourceUrl {
     const videoId = this.getYouTubeMovieTrailerId();
     const enableAutoPlay = this.autoplay ? 1 : 0;
@@ -37,8 +47,12 @@ export class MovieTrailerComponent {
     return '';
   }
 
+  /**
+   * Retrieves the ID of the YouTube movie trailer video from the provided link.
+   * @returns ID of the YouTube movie trailer video.
+   */
   getYouTubeMovieTrailerId(): string {
-    const videoIdMatch = this.movie.trailerLink.match(
+    const videoIdMatch = this.movie()?.trailerLink.match(
       /(?:\/|v=)([a-zA-Z0-9_-]{11})/
     );
     if (videoIdMatch && videoIdMatch.length > 1) {

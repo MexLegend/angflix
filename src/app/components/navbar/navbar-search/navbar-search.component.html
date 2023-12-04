@@ -1,1 +1,39 @@
-<p>navbar-search works!</p>
+<label
+  for="searchBox"
+  class="flex rounded-lg h-14 w-full max-h-64 my-auto bg-fuchsia-600/20 border border-fuchsia-500/25 overflow-hidden focus-within:outline focus-within:outline-2 focus-within:outline-fuchsia-500"
+>
+  <form
+    class="flex gap-1 w-full place-items-center px-4"
+    [formGroup]="searchForm"
+    (submit)="handleSubmit($event)"
+  >
+    <button #searchButton class="transition-all duration-200 active:scale-95">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="white"
+        stroke="white"
+        stroke-width=".5"
+        class="bi bi-search w-6 h-6"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+        />
+      </svg>
+    </button>
+
+    <input
+      #searchInput
+      id="searchBox"
+      class="bg-transparent border-none w-full h-full px-4 py-2 text-white outline-none placeholder:text-white/70 font-semibold"
+      type="text"
+      formControlName="search"
+      placeholder="Search movie"
+      [required]="true"
+      autocomplete="off"
+      autocapitalize="false"
+    />
+  </form>
+</label>

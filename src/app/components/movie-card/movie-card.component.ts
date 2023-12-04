@@ -6,6 +6,7 @@ import { WatchlistButtonComponent } from '../watchlist-button/watchlist-button.c
 import { RatingStarsComponent } from '../rating-stars/rating-stars.component';
 import { RouterModule } from '@angular/router';
 import { MovieService } from '../../services/movie.service';
+import { WatchlistService } from '../../services/watchlist.service';
 
 @Component({
   selector: 'app-movie-card',
@@ -23,9 +24,15 @@ import { MovieService } from '../../services/movie.service';
 export class MovieCardComponent {
   @Input() movie!: Movie;
 
-  constructor(private movieService: MovieService) {}
+  constructor(
+    private movieService: MovieService,
+    private watchlistService: WatchlistService
+  ) {}
+
+  isMovieInWatchList: Signal<boolean> = computed(()=> this.watchlistService.isMovieInWatchList(this.movie.id));
 
   movieRating: Signal<number> = computed(() =>
     this.movieService.getMovieRating(this.movie)
   );
+
 }

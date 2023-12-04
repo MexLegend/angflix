@@ -32,6 +32,10 @@
       </h4>
       <app-rating-stars [initialStars]="movieRating()" [wholeStars]="false" />
     </div>
-    <app-watchlist-button class="mx-auto" />
+    <app-watchlist-button
+      class="mx-auto"
+      [movie]="movie"
+      [isInWatchList]="isMovieInWatchList()"
+    />
   </div>
 </button>
