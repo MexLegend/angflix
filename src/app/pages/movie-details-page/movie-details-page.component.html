@@ -1,11 +1,18 @@
 <app-container>
-  <section *ngIf="movie()" class="flex flex-col w-full mt-28 mb-12">
-    <app-movie-details [movie]="movie()!" />
-    <app-movie-trailer class="w-full" [movie]="movie" />
-    <app-category-section
-      class="mt-4"
-      title="You may also like"
-      [movies]="genreRelatedMovies"
+  <section class="flex flex-col w-full mt-28 mb-12">
+    <div *ngIf="movie()" class="flex flex-col flex-1 w-full">
+      <app-movie-details [movie]="movie()!" />
+      <app-movie-trailer class="w-full" [movie]="movie" />
+      <app-category-section
+        class="mt-4"
+        title="You may also like"
+        [movies]="genreRelatedMovies"
+      />
+    </div>
+    <app-no-results-found-message
+      *ngIf="!movie()"
+      title="Movie not found"
+      subtitle="Explore other options to watch."
     />
   </section>
 </app-container>

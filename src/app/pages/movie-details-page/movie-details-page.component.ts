@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MovieDetailsComponent } from './components/movie-details/movie-details.component';
 import { CategorySectionComponent } from 'src/app/components/category-section/category-section.component';
+import { NoResultsFoundMessageComponent } from 'src/app/components/no-results-found-message/no-results-found-message.component';
 
 @Component({
   selector: 'app-movie-details-page',
@@ -18,6 +19,7 @@ import { CategorySectionComponent } from 'src/app/components/category-section/ca
     MovieTrailerComponent,
     MovieDetailsComponent,
     CategorySectionComponent,
+    NoResultsFoundMessageComponent
   ],
   templateUrl: './movie-details-page.component.html',
   styleUrls: ['./movie-details-page.component.scss'],
