@@ -6,12 +6,17 @@ import { MovieService } from 'src/app/services/movie.service';
 import { Movie } from 'src/app/interfaces/movie';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { EmptyMoviesListMessageComponent } from 'src/app/components/empty-movies-list-message/empty-movies-list-message.component';
+import { NoResultsFoundMessageComponent } from 'src/app/components/no-results-found-message/no-results-found-message.component';
 
 @Component({
   selector: 'app-search-page',
   standalone: true,
-  imports: [CommonModule, ContainerComponent, CategorySectionComponent, EmptyMoviesListMessageComponent],
+  imports: [
+    CommonModule,
+    ContainerComponent,
+    CategorySectionComponent,
+    NoResultsFoundMessageComponent,
+  ],
   templateUrl: './search-page.component.html',
   styleUrls: ['./search-page.component.scss'],
 })

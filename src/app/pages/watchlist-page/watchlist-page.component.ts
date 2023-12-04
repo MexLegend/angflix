@@ -4,11 +4,17 @@ import { Movie } from 'src/app/interfaces/movie';
 import { WatchlistService } from 'src/app/services/watchlist.service';
 import { ContainerComponent } from 'src/app/components/container/container.component';
 import { CategorySectionComponent } from 'src/app/components/category-section/category-section.component';
+import { NoResultsFoundMessageComponent } from 'src/app/components/no-results-found-message/no-results-found-message.component';
 
 @Component({
   selector: 'app-watchlist-page',
   standalone: true,
-  imports: [CommonModule, ContainerComponent, CategorySectionComponent],
+  imports: [
+    CommonModule,
+    ContainerComponent,
+    CategorySectionComponent,
+    NoResultsFoundMessageComponent,
+  ],
   templateUrl: './watchlist-page.component.html',
   styleUrls: ['./watchlist-page.component.scss'],
 })

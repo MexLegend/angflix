@@ -11,9 +11,10 @@
       [movies]="movies"
       [showSortSelect]="true"
     />
-    <app-empty-movies-list-message
-      *ngIf="!movies().length"
+    <app-no-results-found-message
       class="flex mt-10"
+      *ngIf="!movies().length"
+      subtitle="No results found for your search"
     />
   </app-container>
 </section>
