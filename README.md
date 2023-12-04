@@ -16,7 +16,9 @@ Install the dependencies:
 
 ```sh
 $ pnpm i
-# or
+```
+or
+```sh
 $ npm i
 ```
 
