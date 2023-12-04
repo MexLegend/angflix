@@ -1,8 +1,8 @@
 # AngFlix
 
-<img src="https://res.cloudinary.com/devmexsoft/image/upload/v1701722693/Projects%20Thumbnails/Angflix_Thumbnail_ghrkza.png" height="400px"/>
+<img src="https://res.cloudinary.com/devmexsoft/image/upload/v1701722693/Projects%20Thumbnails/Angflix_Thumbnail_ghrkza.png" height="800px"/>
 
-### [Demo](https://angular-real-state-app.vercel.app)
+### [Demo]((https://angflix.vercel.app)
 
 ## Cloning the repository
 
