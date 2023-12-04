@@ -1,22 +1,22 @@
 <div
   *ngIf="randomMovie()"
-  class="flex place-items-center w-full h-[56.25vw] max-h-screen overflow-hidden relative"
+  class="flex place-items-center w-full h-[56.25vw] max-sm:h-[80vw] min-h-[360px] max-h-screen overflow-hidden relative"
 >
   <app-movie-trailer
     class="w-full"
-    [movie]="randomMovie()"
+    [movie]="randomMovie"
     [expanded]="true"
     [autoplay]="true"
     [mute]="true"
-    [mute]="true"
+    [loop]="true"
     [controls]="false"
   />
 
   <div
-    class="flex flex-col place-content-center absolute inset-0 my-auto ml-4 md:ml-16"
+    class="flex flex-col place-content-center max-md:place-content-end max-md:pb-5 absolute inset-0 my-auto ml-4 md:ml-16"
   >
     <p
-      class="text-white text-1xl font-roboto-slab md:text-5xl w-[40%] lg:text-6xl font-bold drop-shadow-xl"
+      class="text-white text-1xl font-roboto-slab md:text-5xl w-[40%] lg:text-6xl font-bold drop-shadow-xl line-clamp-3"
     >
       {{ randomMovie().title }}
     </p>
@@ -27,7 +27,10 @@
     </p>
     <div class="flex flex-row items-center mt-8 gap-3 text-base">
       <app-play-button [movie]="randomMovie()" />
-      <app-watchlist-button />
+      <app-watchlist-button
+        [movie]="randomMovie()"
+        [isInWatchList]="isMovieInWatchList()"
+      />
     </div>
   </div>
 </div>

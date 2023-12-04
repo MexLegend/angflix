@@ -1,4 +1,6 @@
-<div class="flex gap-10 w-full mb-14">
+<div
+  class="flex gap-10 w-full mb-14 max-sm:flex-col max-sm:items-center max-sm:mb-8"
+>
   <picture class="w-60 min-w-[15rem] aspect-[2/3] rounded-lg overflow-hidden">
     <img
       class="w-full h-full object-cover"
@@ -6,9 +8,11 @@
       [alt]="movie.title"
     />
   </picture>
-  <div class="flex flex-col gap-3">
-    <h4 class="text-white text-4xl font-bold mb-3">{{ movie.title }}</h4>
-    <div class="flex gap-5 place-items-center-center">
+  <div class="flex flex-col gap-3 max-sm:items-center">
+    <h4 class="text-white text-4xl font-bold mb-3 max-sm:text-center">{{ movie.title }}</h4>
+    <div
+      class="flex gap-5 place-items-center-center max-sm:flex-col max-sm:items-center"
+    >
       <div class="flex items-center gap-2">
         <app-rating-stars
           class="mt-[2px]"
@@ -19,9 +23,12 @@
           movieRating() | number : "1.1"
         }}</span>
       </div>
-      <app-watchlist-button />
+      <app-watchlist-button
+        [movie]="movie"
+        [isInWatchList]="isMovieInWatchList()"
+      />
     </div>
-    <p class="text-white/80 text">{{ movie.description }}</p>
+    <p class="text-white/80 text max-sm:text-center">{{ movie.description }}</p>
     <app-movie-details-tag label="Duration" [description]="movie.duration" />
     <app-movie-details-tag
       label="Released Date"

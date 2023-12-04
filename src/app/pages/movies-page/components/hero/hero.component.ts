@@ -10,24 +10,37 @@ import { Movie } from 'src/app/interfaces/movie';
 import { PlayButtonComponent } from '../../../../components/play-button/play-button.component';
 import { WatchlistButtonComponent } from '../../../../components/watchlist-button/watchlist-button.component';
 import { MovieTrailerComponent } from 'src/app/components/movie-trailer/movie-trailer.component';
+import { WatchlistService } from 'src/app/services/watchlist.service';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule, PlayButtonComponent, WatchlistButtonComponent, MovieTrailerComponent],
+  imports: [
+    CommonModule,
+    PlayButtonComponent,
+    WatchlistButtonComponent,
+    MovieTrailerComponent,
+  ],
   templateUrl: './hero.component.html',
   styleUrls: ['./hero.component.scss'],
 })
 export class HeroComponent {
   @Input() movies!: WritableSignal<Movie[]>;
 
-  randomMovie: Signal<Movie> = computed(() => this.getRandomMovie());
+  constructor(private watchlistService: WatchlistService) {}
 
+  randomMovie: Signal<Movie> = computed(() => this.getRandomMovie());
+  isMovieInWatchList: Signal<boolean> = computed(() =>
+    this.watchlistService.isMovieInWatchList(this.randomMovie().id)
+  );
+
+  /**
+   * Retrieves a random movie from the list of movies.
+   * @returns Randomly selected movie from the list.
+   */
   getRandomMovie(): Movie {
     const moviesCount = this.movies().length;
     const randomIndex = Math.floor(Math.random() * moviesCount);
-    console.log({ moviesCount, movie: this.movies()[randomIndex] });
-
     return this.movies()[randomIndex];
   }
 }

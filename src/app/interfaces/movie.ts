@@ -9,3 +9,8 @@ export interface Movie {
   trailerLink: string;
   thumbnail: string;
 }
+
+export interface MovieIdsAndGenres {
+  movieIds: string[];
+  genres: string[];
+}

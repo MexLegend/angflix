@@ -1,1 +1,10 @@
-<p>watchlist-page works!</p>
+<section class="flex flex-col w-full mt-28 mb-12">
+  <app-container class="mb-12">
+    <app-category-section
+      *ngIf="watchList().length"
+      title="Watchlist"
+      [movies]="watchList"
+      [showSortSelect]="true"
+    />
+  </app-container>
+</section>

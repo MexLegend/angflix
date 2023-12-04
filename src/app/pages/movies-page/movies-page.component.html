@@ -1,7 +1,15 @@
 <section class="flex flex-col w-full">
   <app-hero [movies]="movies" />
   <app-container class="mb-12">
-    <app-category-section title="Trending Now" [movies]="movies()" />
-    <app-category-section title="My List" [movies]="movies().slice(0, 1)" />
+    <app-category-section
+      title="Trending Now"
+      [movies]="movies"
+      [showSortSelect]="true"
+    />
+    <app-category-section
+      *ngIf="watchList().length"
+      title="Watchlist"
+      [movies]="watchList"
+    />
   </app-container>
 </section>

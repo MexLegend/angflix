@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { MoviesPageComponent } from './pages/movies-page/movies-page.component';
 import { MovieDetailsPageComponent } from './pages/movie-details-page/movie-details-page.component';
 import { WatchlistPageComponent } from './pages/watchlist-page/watchlist-page.component';
+import { SearchPageComponent } from './pages/search-page/search-page.component';
 
 export const routes: Routes = [
     {
@@ -20,5 +21,9 @@ export const routes: Routes = [
     {
         path: "watchlist",
         component: WatchlistPageComponent
+    },
+    {
+        path: "search",
+        component: SearchPageComponent
     },
 ];

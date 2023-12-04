@@ -1,25 +1,55 @@
 <label
   for="searchBox"
-  class="flex rounded-lg h-14 w-full max-h-64 my-auto bg-fuchsia-600/20 border border-fuchsia-500/25 overflow-hidden focus-within:outline focus-within:outline-2 focus-within:outline-fuchsia-500"
+  class="group w-full transition-all duration-200 overflow-hidden focus-within:outline focus-within:outline-2 focus-within:outline-fuchsia-500 max-md:focus-within:outline-none"
+  [ngClass]="[
+    isFloatingSearch()
+      ? 'bg-dark-blue absolute h-full w-full z-50 inset-0 border-b border-b-fuchsia-300/10'
+      : 'flex rounded-lg max-md:rounded-full bg-fuchsia-600/20 max-md:bg-transparent border border-fuchsia-500/25 max-md:border-none max-md:hover:bg-fuchsia-600/40 h-14 max-md:h-10 max-md:aspect-square max-w-64 my-auto'
+  ]"
 >
   <form
     class="flex gap-1 w-full place-items-center px-4"
+    [ngClass]="[
+      isFloatingSearch() ? 'h-full !px-4' : 'max-md:p-0 max-md:justify-center'
+    ]"
     [formGroup]="searchForm"
     (submit)="handleSubmit($event)"
   >
-    <button #searchButton class="transition-all duration-200 active:scale-95">
+    <button
+      #searchButton
+      class="flex items-center justify-center transition-all duration-200 active:scale-95 w-10 h-10"
+      [ngClass]="{ relative: isFloatingSearch() }"
+      (click)="isMobile() ? toogleFloatingSearch() : null"
+    >
       <svg
+        *ngIf="!isFloatingSearch()"
         xmlns="http://www.w3.org/2000/svg"
         width="16"
         height="16"
         fill="white"
         stroke="white"
         stroke-width=".5"
-        class="bi bi-search w-6 h-6"
+        class="bi bi-search w-6 h-6 max-md:w-5 max-md:h-5 max-md:group-hover:fill-fuchsia-500 max-md:group-hover:stroke-fuchsia-500"
         viewBox="0 0 16 16"
       >
         <path
           d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+        />
+      </svg>
+      <svg
+        *ngIf="isFloatingSearch()"
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="white"
+        stroke="white"
+        stroke-width=".5"
+        class="bi bi-arrow-left-short w-8 h-8 absolute inset-0 m-auto"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"
         />
       </svg>
     </button>
@@ -28,6 +58,7 @@
       #searchInput
       id="searchBox"
       class="bg-transparent border-none w-full h-full px-4 py-2 text-white outline-none placeholder:text-white/70 font-semibold"
+      [ngClass]="{ 'max-md:hidden': !isFloatingSearch() }"
       type="text"
       formControlName="search"
       placeholder="Search movie"

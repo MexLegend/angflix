@@ -1,6 +1,6 @@
 import { Movie } from '../interfaces/movie';
 
-export const MoviesList: Movie[] = [
+export const moviesList: Movie[] = [
   {
     id: '1',
     title: 'Tenet',

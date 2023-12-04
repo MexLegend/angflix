@@ -5,6 +5,7 @@ import { Movie } from 'src/app/interfaces/movie';
 import { CategorySectionComponent } from '../../components/category-section/category-section.component';
 import { ContainerComponent } from 'src/app/components/container/container.component';
 import { HeroComponent } from './components/hero/hero.component';
+import { WatchlistService } from '../../services/watchlist.service';
 
 @Component({
   selector: 'app-movies-page',
@@ -20,21 +21,30 @@ import { HeroComponent } from './components/hero/hero.component';
 })
 export class MoviesPageComponent {
   movies: WritableSignal<Movie[]> = signal([]);
+  watchList: WritableSignal<Movie[]> = signal([]);
 
-  constructor(private movieService: MovieService) {
+  constructor(
+    private movieService: MovieService,
+    private watchlistService: WatchlistService
+  ) {
     this.getMovies();
+    this.watchList = this.watchlistService.getWatchList();
   }
 
   /**
-   * Fetches movies data from the MovieService.
+   * Fetches movies data from the movie service.
+   * Sends a request to retrieve movies data and updates the 'movies' list.
+   * Unsubscribes from the subscription after a brief interval to prevent reference errors.
    */
   getMovies = () => {
-    // Define a subscription to retrieve movies data
-    const getMoviesSub$ = this.movieService.getMovies().subscribe((movies) => {
-      // Set the received movies data to the 'movies' property using WritableSignal's set method
-      this.movies.set(movies);
-      // Unsubscribe from the subscription after a delay of 100 milliseconds to avoid 'ReferenceError'
-      setTimeout(() => getMoviesSub$.unsubscribe(), 100);
-    });
+    // Defines a subscription to fetch movie data
+    const getMoviesSub$ = this.movieService
+      .getMovies()
+      .subscribe((moviesResponse) => {
+        // Updates the 'movies' list with the received data
+        this.movies.set(moviesResponse);
+        // Unsubscribes from the subscription after a brief delay to prevent reference errors
+        setTimeout(() => getMoviesSub$.unsubscribe(), 100);
+      });
   };
 }

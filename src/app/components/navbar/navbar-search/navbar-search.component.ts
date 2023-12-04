@@ -1,4 +1,12 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  ViewChild,
+  WritableSignal,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import {
@@ -16,12 +24,33 @@ import {
   styleUrls: ['./navbar-search.component.scss'],
 })
 export class NavbarSearchComponent {
+  @Input() isFloatingSearch: WritableSignal<boolean> = signal(false);
+
   @ViewChild('searchInput') searchInput!: ElementRef;
   @ViewChild('searchButton') searchButton!: ElementRef;
+
   searchForm!: FormGroup;
+  isMobile: WritableSignal<boolean> = signal(
+    window.matchMedia('(max-width: 768px)').matches
+  );
 
   constructor(private fb: FormBuilder, public router: Router) {
     this.initSearchForm();
+  }
+
+  /**
+   * Listens to the window resize event and adjusts the component's behavior accordingly.
+   */
+  @HostListener('window:resize', [])
+  onResize() {
+    // Check if the window width matches mobile size (less than or equal to 768px)
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+    // If it's not a mobile view and the component is in floating search mode, toggle the search to non-floating mode.
+    if (!isMobile && this.isFloatingSearch()) this.toogleFloatingSearch();
+
+    // Set the isMobile Signal to reflect the current window size.
+    this.isMobile.set(isMobile);
   }
 
   initSearchForm() {
@@ -47,5 +76,9 @@ export class NavbarSearchComponent {
       this.searchButton.nativeElement.blur();
       this.searchForm.reset();
     } else this.searchInput.nativeElement.focus();
+  }
+
+  toogleFloatingSearch() {
+    this.isFloatingSearch.set(!this.isFloatingSearch());
   }
 }

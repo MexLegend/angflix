@@ -1,7 +1,7 @@
 <iframe
   [ngClass]="[
     expanded
-      ? 'w-full h-[56.25vw] max-sm:h-[80vw] brightness-[60%] transition duration-500 pointer-events-none'
+      ? 'w-full h-[56.25vw] max-sm:h-[80vw] min-h-[360px] brightness-[60%] transition duration-500 pointer-events-none'
       : 'w-full aspect-[3/2] max-h-[650px] rounded-2xl'
   ]"
   [src]="youtubeMovieTrailerUrl()"
