@@ -2,7 +2,7 @@ import { Component, Input, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarLinkComponent } from '../navbar-link/navbar-link.component';
 import { NavLink } from 'src/app/interfaces/navlink';
-import { Navlinks } from 'src/app/mocks/navlinks';
+import { navlinks } from 'src/app/mocks/navlinks';
 
 export type NavbarDirection = 'Vertical' | 'Horizontal';
 
@@ -19,5 +19,5 @@ export class NavbarLinksComponent {
   @Input() isOpen?: WritableSignal<boolean>;
   @Input() hideOnMobile: boolean = true;
 
-  publicNavLinks: NavLink[] = Navlinks;
+  publicNavLinks: NavLink[] = navlinks;
 }

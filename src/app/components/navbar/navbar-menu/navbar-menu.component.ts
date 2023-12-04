@@ -1,7 +1,7 @@
 import { Component, Input, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarLinksComponent } from '../navbar-links/navbar-links.component';
-import { Navlinks } from '../../../mocks/navlinks';
+import { navlinks } from '../../../mocks/navlinks';
 import { NavLink } from 'src/app/interfaces/navlink';
 import { NavbarLinkComponent } from '../navbar-link/navbar-link.component';
 
@@ -16,5 +16,5 @@ export class NavbarMenuComponent {
   @Input() isOpen!: WritableSignal<boolean>;
   @Input() activeRoute: string = '';
 
-  navLinks: NavLink[] = Navlinks;
+  navLinks: NavLink[] = navlinks;
 }

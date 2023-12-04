@@ -18,6 +18,7 @@ import { NavbarMenuComponent } from './navbar-menu/navbar-menu.component';
 import { NavbarLinksComponent } from './navbar-links/navbar-links.component';
 import { LogoComponent } from '../logo/logo.component';
 import { NavbarSearchComponent } from './navbar-search/navbar-search.component';
+import { NavbarMenuButtonComponent } from '../navbar-menu-button/navbar-menu-button.component';
 
 @Component({
   selector: 'app-navbar',
@@ -29,7 +30,8 @@ import { NavbarSearchComponent } from './navbar-search/navbar-search.component';
     NavbarLinksComponent,
     NavbarMenuComponent,
     LogoComponent,
-    NavbarSearchComponent
+    NavbarSearchComponent,
+    NavbarMenuButtonComponent
   ],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
@@ -59,9 +61,5 @@ export class NavbarComponent {
   // Unsubscribe Any Subscription
   ngOnDestroy() {
     this.routerEventsSub$?.unsubscribe();
-  }
-
-  handleShowNavbarMenu() {
-    this.isNavbarMenuOpen.set(!this.isNavbarMenuOpen());
   }
 }

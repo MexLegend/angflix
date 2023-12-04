@@ -29,10 +29,12 @@ export class MovieCardComponent {
     private watchlistService: WatchlistService
   ) {}
 
-  isMovieInWatchList: Signal<boolean> = computed(()=> this.watchlistService.isMovieInWatchList(this.movie.id));
+  isMovieInWatchList: Signal<boolean> = computed(() =>
+    this.watchlistService.isMovieInWatchList(this.movie.id)
+  );
+  movieDate: Signal<Date> = computed(() => new Date(this.movie.releasedDate));
 
   movieRating: Signal<number> = computed(() =>
     this.movieService.getMovieRating(this.movie)
   );
-
 }

@@ -1,1 +1,11 @@
-<p>movie-filters works!</p>
+<form [formGroup]="sortForm" (change)="handleFilter()">
+  <select
+    class="py-3 px-4 pe-9 max-sm:pe-4 block font-medium bg-white text-dark-blue rounded-lg focus:border-fuchsia-500 [&>option]:h-7"
+    formControlName="sort"
+  >
+    <option class="hidden" disabled selected value="">Sort by</option>
+    <option *ngFor="let movieFilter of movieFilters" [ngValue]="movieFilter">
+      {{ movieFilter.key }}
+    </option>
+  </select>
+</form>

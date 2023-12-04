@@ -2,7 +2,9 @@
   class="flex flex-col items-center gap-4 group w-full max-w-[260px] aspect-[2/3] p-4 relative mx-auto"
   [routerLink]="['/movie/' + movie.id]"
 >
-  <picture class="w-full h-full rounded-lg overflow-clip absolute inset-0">
+  <picture
+    class="w-full h-full rounded-lg overflow-clip absolute inset-0 before:absolute before:inset-0 before:bg-gradient-to-b before:from-black/80 before:to-transparent before:to-30% before:z-10"
+  >
     <img
       class="w-full h-full rounded-lg object-cover pointer-events-none transition-transform duration-200 brightness-[75%] mx-auto"
       [src]="movie.thumbnail"
@@ -27,10 +29,15 @@
   </picture>
   <div class="flex flex-col justify-between z-10 w-full h-full mx-auto">
     <div class="flex flex-col w-full">
-      <h4 class="text-white text-base font-semibold text-left line-clamp-2">
+      <h4 class="text-white text-base font-semibold text-left line-clamp-1">
         {{ movie.title }}
       </h4>
-      <app-rating-stars [initialStars]="movieRating()" [wholeStars]="false" />
+      <div class="flex gap-2">
+        <time class="text-white/80 text-sm">{{
+          movieDate() | date : "dd/MM/yyyy"
+        }}</time>
+        <app-rating-stars [initialStars]="movieRating()" [wholeStars]="false" />
+      </div>
     </div>
     <app-watchlist-button
       class="mx-auto"
