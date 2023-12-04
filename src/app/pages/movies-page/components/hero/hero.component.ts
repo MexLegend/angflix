@@ -25,7 +25,7 @@ import { WatchlistService } from 'src/app/services/watchlist.service';
   styleUrls: ['./hero.component.scss'],
 })
 export class HeroComponent {
-  @Input() movies!: WritableSignal<Movie[]>;
+  @Input() movies!: Movie[];
 
   constructor(private watchlistService: WatchlistService) {}
 
@@ -39,8 +39,8 @@ export class HeroComponent {
    * @returns Randomly selected movie from the list.
    */
   getRandomMovie(): Movie {
-    const moviesCount = this.movies().length;
+    const moviesCount = this.movies.length;
     const randomIndex = Math.floor(Math.random() * moviesCount);
-    return this.movies()[randomIndex];
+    return this.movies[randomIndex];
   }
 }
