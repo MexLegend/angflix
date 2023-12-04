@@ -32,11 +32,17 @@ $ npm run start
 
 ## Running end-to-end tests
 
+Run the apllication in host mode:
+
 ```sh
 $ pnpm start:host
 # or
 $ npm run start:host
+```
 
+Run cypress test:
+
+```sh
 $ pnpm test:cypress
 # or
 $ npm test:cypress
