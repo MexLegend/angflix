@@ -13,11 +13,15 @@
       [moviesList]="movies"
     />
   </div>
-  <div class="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4">
+  <div
+    class="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4"
+    appFadeIn
+    [delay]="150"
+  >
     <app-movie-card
       class="w-full"
       [movie]="movie"
-      *ngFor="let movie of movies()"
+      *ngFor="let movie of movies(); let i = index"
     />
   </div>
 </section>
