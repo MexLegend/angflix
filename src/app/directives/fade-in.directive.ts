@@ -33,7 +33,7 @@ import {
  * </div>
  */
 @Directive({
-  selector: '[appFadeIn]',
+  selector: '[fadeIn]',
   standalone: true,
 })
 export class FadeInDirective implements AfterViewInit, OnDestroy {
