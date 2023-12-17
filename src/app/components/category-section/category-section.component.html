@@ -1,27 +1,11 @@
 <section class="flex flex-col w-full gap-2 mt-10">
-  <div
-    class="flex w-full justify-between items-center mb-4 max-sm:justify-center max-sm:gap-5 max-sm:flex-col-reverse"
-  >
-    <h4
-      class="text-white text-3xl font-semibold font-roboto-slab tracking-wide max-sm:leading-none"
-    >
-      {{ title }}
-    </h4>
-    <app-movie-filters
-      *ngIf="showSortSelect"
-      class="flex"
-      [moviesList]="movies"
-    />
-  </div>
-  <div
-    class="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4"
-    fadeIn
-    [delay]="150"
-  >
-    <app-movie-card
-      class="w-full"
-      [movie]="movie"
-      *ngFor="let movie of movies(); let i = index"
-    />
-  </div>
+	<div class="flex w-full justify-between items-center mb-4 max-sm:justify-center max-sm:gap-5 max-sm:flex-col-reverse">
+		<h4 class="text-white text-3xl font-semibold font-roboto-slab tracking-wide max-sm:leading-none">
+			{{ title }}
+		</h4>
+		<app-movie-filters *ngIf="showSortSelect" class="flex" [moviesList]="movies" />
+	</div>
+	<div class="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4" fadeIn [delay]="150">
+		<app-movie-card class="w-full" [movie]="movie" *ngFor="let movie of movies; let i = index" />
+	</div>
 </section>

@@ -29,6 +29,12 @@ dependencies:
   '@angular/router':
     specifier: ^16.2.0
     version: 16.2.12(@angular/common@16.2.12)(@angular/core@16.2.12)(@angular/platform-browser@16.2.12)(rxjs@7.8.1)
+  '@ngrx/store':
+    specifier: ^17.0.1
+    version: 17.0.1(@angular/core@16.2.12)(rxjs@7.8.1)
+  '@ngrx/store-devtools':
+    specifier: ^17.0.1
+    version: 17.0.1(@ngrx/store@17.0.1)(rxjs@7.8.1)
   ngx-stars:
     specifier: ^1.6.5
     version: 1.6.5(@angular/common@16.2.12)(@angular/core@16.2.12)
@@ -2395,6 +2401,28 @@ packages:
   /@leichtgewicht/ip-codec@2.0.4:
     resolution: {integrity: sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==}
     dev: true
+
+  /@ngrx/store-devtools@17.0.1(@ngrx/store@17.0.1)(rxjs@7.8.1):
+    resolution: {integrity: sha512-1/BrHmd1KnjEvZtUkmMeOAhftzTLCBxpk0KoVSnl7BFr0LGQZrYUTXHI3b6tzJ2igGuj0d9hk/JRMOXmYn/5WA==}
+    peerDependencies:
+      '@ngrx/store': 17.0.1
+      rxjs: ^6.5.3 || ^7.5.0
+    dependencies:
+      '@ngrx/store': 17.0.1(@angular/core@16.2.12)(rxjs@7.8.1)
+      rxjs: 7.8.1
+      tslib: 2.6.2
+    dev: false
+
+  /@ngrx/store@17.0.1(@angular/core@16.2.12)(rxjs@7.8.1):
+    resolution: {integrity: sha512-BmVzN+fqyz0ZrVEmJ+jrNwePMKcpNL49vb8sbQ3yDDftxgZz2HqRKFMexqlXpz5ixwK5LqTOblHNQOgi9irsTw==}
+    peerDependencies:
+      '@angular/core': ^17.0.0
+      rxjs: ^6.5.3 || ^7.5.0
+    dependencies:
+      '@angular/core': 16.2.12(rxjs@7.8.1)(zone.js@0.13.3)
+      rxjs: 7.8.1
+      tslib: 2.6.2
+    dev: false
 
   /@ngtools/webpack@16.2.10(@angular/compiler-cli@16.2.12)(typescript@5.1.6)(webpack@5.88.2):
     resolution: {integrity: sha512-XAVn59zP3ztuKDtw92Xc9+64RK4u4c9g8y5GgtjIWeOwgNXl8bYhAo3uTZzrSrOu96DFZGjsmghFab/7/C2pDg==}

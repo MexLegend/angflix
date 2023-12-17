@@ -1,4 +1,4 @@
-export interface Movie {
+export interface IMovie {
   id: string;
   title: string;
   description: string;
@@ -10,7 +10,7 @@ export interface Movie {
   thumbnail: string;
 }
 
-export interface MovieIdsAndGenres {
+export interface IMovieIdsAndGenres {
   movieIds: string[];
   genres: string[];
 }

@@ -1,15 +1,10 @@
 <section class="flex flex-col w-full mt-28 mb-12">
-  <app-container class="mb-12">
-    <app-category-section
-      *ngIf="watchList().length"
-      title="Watchlist"
-      [movies]="watchList"
-      [showSortSelect]="true"
-    />
-    <app-no-results-found-message
-      *ngIf="!watchList().length"
-      title="No movies in your watchlist yet!"
-      subtitle="Start adding movies to watch later."
-    />
-  </app-container>
+	<app-container class="mb-12">
+		<app-category-section *ngIf="watchList().length" title="Watchlist" [movies]="watchList()" [showSortSelect]="true" />
+		<app-no-results-found-message
+			*ngIf="!watchList.length"
+			title="No movies in your watchlist yet!"
+			subtitle="Start adding movies to watch later."
+		/>
+	</app-container>
 </section>
