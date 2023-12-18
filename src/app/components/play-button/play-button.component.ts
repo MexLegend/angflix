@@ -1,16 +1,16 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { Movie } from 'src/app/interfaces/movie';
+import { IMovie } from 'src/app/interfaces/movie';
 
 @Component({
-  selector: 'app-play-button',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './play-button.component.html',
-  styleUrls: ['./play-button.component.scss'],
+	selector: 'app-play-button',
+	standalone: true,
+	imports: [CommonModule, RouterModule],
+	templateUrl: './play-button.component.html',
+	styleUrls: ['./play-button.component.scss']
 })
 export class PlayButtonComponent {
-  @Input() movie!: Movie;
-  @Input() showLabel: boolean = true;
+	@Input() movie!: IMovie;
+	@Input() showLabel: boolean = true;
 }
