@@ -13,7 +13,7 @@ export const selectWatchlist = createSelector(selectWatchlistFeature, (state: Re
  * @param movieId Identifier of the movie to check.
  * @returns Returns true if the movie is in the watchlist; otherwise, returns false.
  */
-export const isMovieInWatchList = (movieId: string) =>
+export const isMovieInWatchList = (movieId: number) =>
 	createSelector(selectWatchlist, (watchlist: ReadonlyArray<IMovie>) => {
 		return watchlist.some((item) => item.id === movieId);
 	});

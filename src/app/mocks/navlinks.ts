@@ -1,6 +1,6 @@
-import { NavLink } from "../interfaces/navlink";
+import { INavLink } from "../interfaces/navlink";
 
-export const navlinks: NavLink[] = [
+export const navlinks: INavLink[] = [
     {
         label: "Movies",
         route: "/movies"

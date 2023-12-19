@@ -6,12 +6,15 @@ import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
 import { appReducers } from './state/reducers';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { provideEffects } from '@ngrx/effects';
+import { MovieEffects } from './state/effects/movies.effects';
 
 export const appConfig: ApplicationConfig = {
 	providers: [
 		provideRouter(routes),
 		provideHttpClient(),
 		provideStore(appReducers),
-		provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode(), connectInZone: true })
+		provideEffects([MovieEffects]),
+		provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode(), connectInZone: true }),
 	]
 };

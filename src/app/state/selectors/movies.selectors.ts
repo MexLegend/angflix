@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { IMovie } from 'src/app/interfaces/movie';
+import { MoviesState } from '../interfaces/movie.state';
 
-const selectMoviesFeature = createFeatureSelector<ReadonlyArray<IMovie>>('movies');
+const selectMoviesFeature = createFeatureSelector<MoviesState>('movies');
 
-export const selectMovies = createSelector(selectMoviesFeature, (state: ReadonlyArray<IMovie>) => state);
+export const selectMovies = createSelector(selectMoviesFeature, (state: MoviesState) => state);

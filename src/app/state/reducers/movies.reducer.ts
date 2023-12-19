@@ -1,11 +1,30 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { IMovie } from 'src/app/interfaces/movie';
+import { MoviesState } from '../interfaces/movie.state';
 import { MoviesApiActions } from '../actions/movies.actions';
 
-export const initialState: ReadonlyArray<IMovie> = [];
+export const initialState: MoviesState = {
+	movies: [],
+	loading: false,
+	error: null
+};
 
 export const moviesReducer = createReducer(
 	initialState,
-	on(MoviesApiActions.movieList, (_state, { movies }) => movies)
+	on(MoviesApiActions.loadMovies, (state) => ({
+		...state,
+		loading: true,
+		error: null
+	})),
+	on(MoviesApiActions.loadMoviesSuccess, (state, { movies }) => ({
+		...state,
+		movies,
+		loading: false
+	})),
+	on(MoviesApiActions.loadMoviesFailure, (state, { error }) => ({
+		...state,
+		movies: [],
+		loading: false,
+		error
+	}))
 );

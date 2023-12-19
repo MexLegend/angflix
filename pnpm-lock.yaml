@@ -29,12 +29,18 @@ dependencies:
   '@angular/router':
     specifier: ^16.2.0
     version: 16.2.12(@angular/common@16.2.12)(@angular/core@16.2.12)(@angular/platform-browser@16.2.12)(rxjs@7.8.1)
+  '@ngrx/effects':
+    specifier: ^17.0.1
+    version: 17.0.1(@angular/core@16.2.12)(@ngrx/store@17.0.1)(rxjs@7.8.1)
   '@ngrx/store':
     specifier: ^17.0.1
     version: 17.0.1(@angular/core@16.2.12)(rxjs@7.8.1)
   '@ngrx/store-devtools':
     specifier: ^17.0.1
     version: 17.0.1(@ngrx/store@17.0.1)(rxjs@7.8.1)
+  ngx-skeleton-loader:
+    specifier: ^8.1.0
+    version: 8.1.0(@angular/common@16.2.12)(@angular/core@16.2.12)
   ngx-stars:
     specifier: ^1.6.5
     version: 1.6.5(@angular/common@16.2.12)(@angular/core@16.2.12)
@@ -2401,6 +2407,29 @@ packages:
   /@leichtgewicht/ip-codec@2.0.4:
     resolution: {integrity: sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==}
     dev: true
+
+  /@ngrx/effects@17.0.1(@angular/core@16.2.12)(@ngrx/store@17.0.1)(rxjs@7.8.1):
+    resolution: {integrity: sha512-U7ewZpUoJlLrWyZVyzAMU6Qfxmte7Noi9n/pJb5BR3pWmdHnU+VPs08xnSIQUa0US7K6dJJRTGtcEpEvv/IT4A==}
+    peerDependencies:
+      '@angular/core': ^17.0.0
+      '@ngrx/store': 17.0.1
+      rxjs: ^6.5.3 || ^7.5.0
+    dependencies:
+      '@angular/core': 16.2.12(rxjs@7.8.1)(zone.js@0.13.3)
+      '@ngrx/operators': 17.0.0-beta.0(rxjs@7.8.1)
+      '@ngrx/store': 17.0.1(@angular/core@16.2.12)(rxjs@7.8.1)
+      rxjs: 7.8.1
+      tslib: 2.6.2
+    dev: false
+
+  /@ngrx/operators@17.0.0-beta.0(rxjs@7.8.1):
+    resolution: {integrity: sha512-EbO8AONuQ6zo2v/mPyBOi4y0CTAp1x4Z+bx7ZF+Pd8BL5ma53BTCL1TmzaeK5zPUe0yApudLk9/ZbHXPnVox5A==}
+    peerDependencies:
+      rxjs: ^6.5.3 || ^7.4.0
+    dependencies:
+      rxjs: 7.8.1
+      tslib: 2.6.2
+    dev: false
 
   /@ngrx/store-devtools@17.0.1(@ngrx/store@17.0.1)(rxjs@7.8.1):
     resolution: {integrity: sha512-1/BrHmd1KnjEvZtUkmMeOAhftzTLCBxpk0KoVSnl7BFr0LGQZrYUTXHI3b6tzJ2igGuj0d9hk/JRMOXmYn/5WA==}
@@ -6843,6 +6872,17 @@ packages:
   /neo-async@2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
+
+  /ngx-skeleton-loader@8.1.0(@angular/common@16.2.12)(@angular/core@16.2.12):
+    resolution: {integrity: sha512-Ap/QSjadv/Kl0Vj7BiIWLG0JZZlo0eCJhdIVJ3Ryz7R0c4BR2Eq3O01du3ftf0SDbwt5vt7342NyqhLNrQ08RA==}
+    peerDependencies:
+      '@angular/common': '>=16.0.0'
+      '@angular/core': '>=16.0.0'
+    dependencies:
+      '@angular/common': 16.2.12(@angular/core@16.2.12)(rxjs@7.8.1)
+      '@angular/core': 16.2.12(rxjs@7.8.1)(zone.js@0.13.3)
+      tslib: 2.6.2
+    dev: false
 
   /ngx-stars@1.6.5(@angular/common@16.2.12)(@angular/core@16.2.12):
     resolution: {integrity: sha512-ZJ2R1XgIkBj5TsHSP8tl3QvbRBCi1awLO03Aod7ffDNG1i785ODw9gYlOAvsIrUmnY9ha1h21tTs5pBWXqA+5Q==}

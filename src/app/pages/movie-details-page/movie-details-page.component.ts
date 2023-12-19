@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ContainerComponent } from 'src/app/components/container/container.component';
 import { MovieTrailerComponent } from 'src/app/components/movie-trailer/movie-trailer.component';
 import { MovieService } from '../../services/movie.service';
-import { IMovie } from 'src/app/interfaces/movie';
+import { IMovie, IMovieDetails } from 'src/app/interfaces/movie';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MovieDetailsComponent } from './components/movie-details/movie-details.component';
@@ -26,7 +26,7 @@ import { NoResultsFoundMessageComponent } from 'src/app/components/no-results-fo
 })
 export class MovieDetailsPageComponent implements OnInit, OnDestroy {
 	routerParamsSub$?: Subscription;
-	movie: WritableSignal<IMovie | null> = signal(null);
+	movie: WritableSignal<IMovieDetails | null> = signal(null);
 	genreRelatedMovies: WritableSignal<ReadonlyArray<IMovie>> = signal([]);
 
 	private readonly _route: ActivatedRoute = inject(ActivatedRoute);
@@ -47,21 +47,21 @@ export class MovieDetailsPageComponent implements OnInit, OnDestroy {
 	getMovieIdFromParams() {
 		this.routerParamsSub$ = this._route.params.subscribe((params) => {
 			const id = params['id'];
-			this.getMovieById(id);
+			this.getMovieById(Number(id));
 		});
 	}
 
 	/**
 	 * Fetches data of a single movie from the MovieService using its ID
 	 */
-	getMovieById = (movieId: string) => {
+	getMovieById = (movieId: number) => {
 		// Define a subscription to retrieve movie data
 		const getMovieByIdSub$ = this._movieService.getMovieById(movieId).subscribe((movieReponse) => {
 			if (movieReponse) {
 				// Set the'movie' value with the "movieReponse" using WritableSignal's set method
 				this.movie.set(movieReponse);
 				// Get a list of movies that matches any of the "movieReponse" genres
-				this.getMoviesByGenre(movieReponse.id, movieReponse.genre || []);
+				this.getMoviesByGenre(movieReponse.id, []);
 			} else {
 				console.log('Movie not found');
 			}
@@ -77,7 +77,7 @@ export class MovieDetailsPageComponent implements OnInit, OnDestroy {
 	 * @param movieId The ID of the movie used to filter related movies by genre.
 	 * @param genres An array of genres used to filter movies.
 	 */
-	getMoviesByGenre(movieId: string, genres: string[]) {
+	getMoviesByGenre(movieId: number, genres: string[]) {
 		const getMoviesByGenreSub$ = this._movieService
 			.getMoviesByGenre([movieId], genres)
 			.subscribe((genreRelatedMoviesResponse) => {

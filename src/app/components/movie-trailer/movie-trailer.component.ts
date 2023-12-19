@@ -44,7 +44,7 @@ export class MovieTrailerComponent {
 	 * @returns ID of the YouTube movie trailer video.
 	 */
 	getYouTubeMovieTrailerId(): string {
-		const videoIdMatch = this.movie?.trailerLink.match(/(?:\/|v=)([a-zA-Z0-9_-]{11})/);
+		const videoIdMatch = this.movie?.title.match(/(?:\/|v=)([a-zA-Z0-9_-]{11})/);
 		if (videoIdMatch && videoIdMatch.length > 1) {
 			return videoIdMatch[1];
 		}

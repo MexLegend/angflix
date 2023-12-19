@@ -1,6 +1,6 @@
-import { MovieFilter } from '../interfaces/movie-filter';
+import { IMovieFilter } from '../interfaces/movie-filter';
 
-export const movieFilters: MovieFilter[] = [
+export const movieFilters: IMovieFilter[] = [
   {
     key: 'Title',
     value: 'title',

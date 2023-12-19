@@ -28,7 +28,7 @@ export class MovieCardComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.isMovieInWatchList = this._store.selectSignal(isMovieInWatchList(this.movie.id));
-		this.movieDate = computed(() => new Date(this.movie.releasedDate));
+		this.movieDate = computed(() => new Date(this.movie.release_date));
 		this.movieRating = computed(() => this._movieService.getMovieRating(this.movie));
 	}
 }

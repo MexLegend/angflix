@@ -1,4 +1,4 @@
-import { Component, WritableSignal, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, WritableSignal, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContainerComponent } from 'src/app/components/container/container.component';
 import { CategorySectionComponent } from 'src/app/components/category-section/category-section.component';
@@ -15,12 +15,15 @@ import { NoResultsFoundMessageComponent } from 'src/app/components/no-results-fo
 	templateUrl: './search-page.component.html',
 	styleUrls: ['./search-page.component.scss']
 })
-export class SearchPageComponent {
+export class SearchPageComponent implements OnInit, OnDestroy {
 	routerParamsSub$?: Subscription;
 	searchMovieLabel: WritableSignal<string> = signal('');
 	movies: WritableSignal<IMovie[]> = signal([]);
 
-	constructor(private movieService: MovieService, private route: ActivatedRoute) {
+	private readonly _movieService: MovieService = inject(MovieService);
+	private readonly _route: ActivatedRoute = inject(ActivatedRoute);
+
+	ngOnInit(): void {
 		this.getMovieTitleFromQueryParams();
 	}
 
@@ -33,7 +36,7 @@ export class SearchPageComponent {
 	 * Calls a method to format the movie title and fetch movies based on the formatted title.
 	 */
 	getMovieTitleFromQueryParams() {
-		this.routerParamsSub$ = this.route.queryParams.subscribe((params) => {
+		this.routerParamsSub$ = this._route.queryParams.subscribe((params) => {
 			const searchMovieTitle = params['search'];
 			const searchMovieTitleFormatted = this.formatSearchMovieTitle(searchMovieTitle);
 			this.searchMovieLabel.set(`Results for "${searchMovieTitle}"`);
@@ -46,7 +49,7 @@ export class SearchPageComponent {
 	}
 
 	getMoviesByTitle(movieTitle: string) {
-		const getMoviesByTitleSub$ = this.movieService.getMoviesByTitle(movieTitle).subscribe((movies) => {
+		const getMoviesByTitleSub$ = this._movieService.getMoviesByTitle(movieTitle).subscribe((movies) => {
 			this.movies.set(movies);
 			getMoviesByTitleSub$.unsubscribe();
 		});

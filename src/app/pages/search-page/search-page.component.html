@@ -1,20 +1,13 @@
 <section class="flex flex-col w-full mt-28 mb-12">
-  <app-container class="mb-12">
-    <h4
-      class="text-white text-3xl font-semibold font-roboto-slab tracking-wide mb-4 max-sm:text-center"
-    >
-      {{ searchMovieLabel() }}
-    </h4>
-    <app-category-section
-      *ngIf="movies().length"
-      title=""
-      [movies]="movies"
-      [showSortSelect]="true"
-    />
-    <app-no-results-found-message
-      class="flex mt-10"
-      *ngIf="!movies().length"
-      subtitle="No results found for your search"
-    />
-  </app-container>
+	<app-container class="mb-12">
+		<h4 class="text-white text-3xl font-semibold font-roboto-slab tracking-wide mb-4 max-sm:text-center">
+			{{ searchMovieLabel() }}
+		</h4>
+		<app-category-section *ngIf="movies().length" title="" [movies]="movies()" [showSortSelect]="true" />
+		<app-no-results-found-message
+			class="flex mt-10"
+			*ngIf="!movies().length"
+			subtitle="No results found for your search"
+		/>
+	</app-container>
 </section>

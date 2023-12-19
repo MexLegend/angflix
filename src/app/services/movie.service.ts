@@ -1,18 +1,25 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable, catchError, delay, of } from 'rxjs';
 import { moviesList } from '../mocks/movies';
-import { IMovie } from '../interfaces/movie';
+import { IMovie, IMovieDetails } from '../interfaces/movie';
+import { environment } from 'src/environments/environment.development';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class MovieService {
+	private readonly http: HttpClient = inject(HttpClient);
+
 	/**
 	 * Retrieves a list of movies after 1 second.
 	 * @returns Observable emitting the list of movies or an empty list in case of error.
 	 */
 	getMovies(): Observable<IMovie[]> {
-		return of<IMovie[]>(moviesList).pipe(delay(1000), catchError(this.handleError<IMovie[]>([])));
+		const currentYear = new Date().getFullYear();
+		const url = `${environment.MOVIES_ENDPOINT}/discover/movie?api_key=${environment.MOVIES_API_KEY}&primary_release_year=${currentYear}&sort_by=popularity.desc&page=1`;
+		return this.http.get<IMovie[]>(url);
+		// return of<IMovie[]>(moviesList).pipe(delay(1000), catchError(this.handleError<IMovie[]>([])));
 	}
 
 	/**
@@ -20,9 +27,9 @@ export class MovieService {
 	 * @param movieId Identifier of the movie to retrieve.
 	 * @returns Observable that emits the movie corresponding to the ID or null if not found.
 	 */
-	getMovieById(movieId: string): Observable<IMovie | null> {
-		const movie = moviesList.find((item) => item.id === movieId) || null;
-		return of<IMovie | null>(movie).pipe(delay(1000), catchError(this.handleError<null>(null)));
+	getMovieById(movieId: number): Observable<IMovieDetails | null> {
+		const movie = [].find((item: any) => item.id === movieId) || null;
+		return of<IMovieDetails | null>(movie).pipe(delay(1000), catchError(this.handleError<null>(null)));
 	}
 
 	/**
@@ -31,9 +38,9 @@ export class MovieService {
 	 * @param genres List of genres to filter the movies.
 	 * @returns Observable emitting the list of movies by genre excluding the specified movies, or an empty list in case of error.
 	 */
-	getMoviesByGenre(movieIds: string[], genres: string[]): Observable<IMovie[]> {
-		const movies = moviesList.filter((movie) =>
-			genres.some((genre) => movie.genre.includes(genre) && !movieIds.includes(movie.id))
+	getMoviesByGenre(movieIds: number[], genres: string[]): Observable<IMovie[]> {
+		const movies = [].filter((movie: any) =>
+			genres.some((genre) => movie.title.includes(genre) && !movieIds.includes(movie.id))
 		);
 		return of<IMovie[]>(movies).pipe(delay(1000), catchError(this.handleError<IMovie[]>([])));
 	}
@@ -44,9 +51,7 @@ export class MovieService {
 	 * @returns Observable of movies filtered by the provided title or an empty list in case of error.
 	 */
 	getMoviesByTitle(movieTitle: string): Observable<IMovie[]> {
-		const movies = moviesList.filter((movie) =>
-			movie.title.toLocaleLowerCase().includes(movieTitle.toLocaleLowerCase())
-		);
+		const movies = [].filter((movie: any) => movie.title.toLocaleLowerCase().includes(movieTitle.toLocaleLowerCase()));
 		return of<IMovie[]>(movies).pipe(delay(1000), catchError(this.handleError<IMovie[]>([])));
 	}
 
@@ -56,10 +61,8 @@ export class MovieService {
 	 * @param movieIds An array of movie IDs used to filter the moviesList.
 	 * @returns An observable emitting movies filtered by the provided IDs or an empty array in case of an error.
 	 */
-	getMoviesByWatchList(movieIds: string[]): Observable<IMovie[]> {
-		const watchListMovies = moviesList.filter((movie) =>
-			movieIds.some((watchListMovie) => watchListMovie === movie.id)
-		);
+	getMoviesByWatchList(movieIds: number[]): Observable<IMovie[]> {
+		const watchListMovies = [].filter((movie: any) => movieIds.some((watchListMovie) => watchListMovie === movie.id));
 		return of<IMovie[]>(watchListMovies).pipe(delay(1000), catchError(this.handleError<IMovie[]>([])));
 	}
 
@@ -82,6 +85,6 @@ export class MovieService {
 	 * @returns Movie Rating / 2.
 	 */
 	getMovieRating(movie: IMovie): number {
-		return movie.rating / 2;
+		return movie.vote_average / 2;
 	}
 }
