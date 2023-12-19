@@ -1,24 +1,13 @@
 import { Injectable, inject } from '@angular/core';
 import { IMovie } from '../interfaces/movie';
 import { Store } from '@ngrx/store';
-import { WatchlistActions } from '../state/actions/movies.actions';
+import { WatchlistActions } from '../state/actions/watchlist.actions';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class WatchlistService {
 	private readonly _store: Store = inject(Store);
-
-	/**
-	 * Sets the watchlist in local storage and updates the value of the watchlist state.
-	 * @param watchList List of movies to be stored.
-	 * @returns Nothing.
-	 */
-	setWatchList(watchList: IMovie[]) {
-		const moviesIds = watchList.map((item) => item.id);
-		localStorage.setItem('watchList', JSON.stringify(moviesIds));
-		this._store.dispatch(WatchlistActions.watchlist({ watchList }));
-	}
 
 	/**
 	 * Retrieves the watchlist stored in the local storage.
@@ -28,15 +17,5 @@ export class WatchlistService {
 	getStorageWatchList(): number[] {
 		const watchList = localStorage.getItem('watchList');
 		return watchList ? JSON.parse(watchList).map((item: string) => Number(item)) : [];
-	}
-
-	/**
-	 * Updates watchlist state.
-	 * @param addToWatchList Boolean indicating whether to add to the watchlist.
-	 * @param movieId The movie to add or remove from the list.
-	 * @returns Nothing.
-	 */
-	toogleWatchList(addToWatchlist: boolean, movie: IMovie) {
-		this._store.dispatch(WatchlistActions.toogleWatchlist({ addToWatchlist, movie }));
 	}
 }

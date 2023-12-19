@@ -1,15 +1,21 @@
 <section class="flex flex-col w-full">
-	<app-hero />
+	<app-hero *ngIf="!moviesState().loading" />
+	<ng-container *ngIf="moviesState().loading">
+		<div class="flex items-center justify-center w-full h-[56.25vw] max-sm:h-[80vw] sm:h-screen min-h-[360px]">
+			<app-loader label="Loading..." />
+		</div>
+	</ng-container>
 	<app-container class="mb-12">
-		<code class="text-white">
-			{{ moviesState().movies | json }}
-		</code>
 		<app-category-section
 			[isLoading]="moviesState().loading"
 			title="Trending Now"
 			[showSortSelect]="true"
 			[movies]="moviesState().movies"
 		/>
-		<app-category-section *ngIf="watchList().length" title="Watchlist" [movies]="watchList()" />
+		<app-category-section
+			[isLoading]="watchListState().loading"
+			title="Watchlist"
+			[movies]="watchListState().watchlist"
+		/>
 	</app-container>
 </section>

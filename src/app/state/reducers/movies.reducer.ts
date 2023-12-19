@@ -1,9 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { MoviesState } from '../interfaces/movie.state';
+import { IMoviesState } from '../interfaces/movie.state';
 import { MoviesApiActions } from '../actions/movies.actions';
 
-export const initialState: MoviesState = {
+export const initialState: IMoviesState = {
 	movies: [],
 	loading: false,
 	error: null

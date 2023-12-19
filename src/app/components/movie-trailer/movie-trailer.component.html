@@ -4,10 +4,18 @@
 			? 'w-full h-[56.25vw] max-sm:h-[80vw] min-h-[360px] brightness-[60%] transition duration-500 pointer-events-none'
 			: 'w-full aspect-[3/2] max-h-[650px] rounded-2xl'
 	]"
-	[src]="youtubeMovieTrailerUrl()"
+	[src]="youtubeMovieTrailerUrl() | async"
 	frameborder="0"
 	allow="autoplay; fullscreen"
 	allowfullscreen
 	width="100%"
 	height="100%"
-></iframe>
+>
+</iframe>
+<picture>
+	<img
+		src="
+	"
+		alt=""
+	/>
+</picture>

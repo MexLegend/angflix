@@ -6,6 +6,7 @@ import { CategorySectionComponent } from 'src/app/components/category-section/ca
 import { NoResultsFoundMessageComponent } from 'src/app/components/no-results-found-message/no-results-found-message.component';
 import { Store } from '@ngrx/store';
 import { selectWatchlist } from 'src/app/state/selectors/watchlist.selector';
+import { IWatchlistState } from 'src/app/state/interfaces/watchlist.state';
 
 @Component({
 	selector: 'app-watchlist-page',
@@ -17,6 +18,5 @@ import { selectWatchlist } from 'src/app/state/selectors/watchlist.selector';
 export class WatchlistPageComponent {
 	private readonly _store: Store = inject(Store);
 
-	watchList: Signal<ReadonlyArray<IMovie>> = this._store.selectSignal(selectWatchlist);
-
+	watchListState: Signal<IWatchlistState> = this._store.selectSignal(selectWatchlist);
 }

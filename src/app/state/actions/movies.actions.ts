@@ -9,14 +9,6 @@ export const MoviesActions = createActionGroup({
 	}
 });
 
-export const WatchlistActions = createActionGroup({
-	source: 'Watchlist',
-	events: {
-		Watchlist: props<{ watchList: ReadonlyArray<IMovie> }>(),
-		'Toogle Watchlist': props<{ addToWatchlist: boolean; movie: IMovie }>()
-	}
-});
-
 export const MoviesApiActions = createActionGroup({
 	source: 'Movies API',
 	events: {

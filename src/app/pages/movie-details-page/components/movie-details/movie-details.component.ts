@@ -6,6 +6,7 @@ import { MovieDetailsTagComponent } from '../movie-details-tag/movie-details-tag
 import { WatchlistButtonComponent } from 'src/app/components/watchlist-button/watchlist-button.component';
 import { Store } from '@ngrx/store';
 import { isMovieInWatchList } from 'src/app/state/selectors/watchlist.selector';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
 	selector: 'app-movie-details',
@@ -21,4 +22,7 @@ export class MovieDetailsComponent {
 
 	isMovieInWatchList: Signal<boolean> = this._store.selectSignal(isMovieInWatchList(this.movie.id));
 	movieGenres: Signal<string> = computed(() => this.movie.genres.map((item) => item.name).join(', '));
+	movieThumbnail: Signal<string> = computed(
+		() => `${environment.MOVIES_IMAGES_ENDPOINT}/t/p/original/${this.movie.poster_path}`
+	);
 }

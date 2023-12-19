@@ -7,7 +7,7 @@
 	>
 		<img
 			class="w-full h-full rounded-lg object-cover pointer-events-none transition-transform duration-200 brightness-[75%] mx-auto"
-			[src]="movie.poster_path"
+			[src]="movieThumbnail()"
 			[alt]="movie.title"
 		/>
 		<div
@@ -34,7 +34,7 @@
 			</h4>
 			<div class="flex gap-2">
 				<time class="text-white/80 text-sm">{{ movieDate() | date : 'dd/MM/yyyy' }}</time>
-				<app-rating-stars [initialStars]="movieRating()" [wholeStars]="false" />
+				<app-rating-stars [initialStars]="movie.vote_average" [wholeStars]="false" />
 			</div>
 		</div>
 		<app-watchlist-button class="mx-auto" [movie]="movie" [isInWatchList]="isMovieInWatchList()" />

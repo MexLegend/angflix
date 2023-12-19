@@ -1,6 +1,6 @@
 <div class="flex gap-10 w-full mb-14 max-sm:flex-col max-sm:items-center max-sm:mb-8">
 	<picture class="w-60 min-w-[15rem] aspect-[2/3] rounded-lg overflow-hidden">
-		<img class="w-full h-full object-cover" [src]="movie.poster_path" [alt]="movie.title" />
+		<img class="w-full h-full object-cover" [src]="movieThumbnail()" [alt]="movie.title" />
 	</picture>
 	<div class="flex flex-col gap-3 max-sm:items-center">
 		<h4 class="text-white text-4xl font-bold mb-3 max-sm:text-center">{{ movie.title }}</h4>

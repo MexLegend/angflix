@@ -1,6 +1,6 @@
 import { IMovie } from "src/app/interfaces/movie";
 
-export interface MoviesState {
+export interface IMoviesState {
 	movies: ReadonlyArray<IMovie>;
 	loading: boolean;
 	error: string | null;

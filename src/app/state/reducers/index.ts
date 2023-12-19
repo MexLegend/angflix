@@ -1,15 +1,15 @@
 import { ActionReducerMap } from '@ngrx/store';
-import { IMovie } from 'src/app/interfaces/movie';
 import { moviesReducer } from './movies.reducer';
-import { watchListReducer } from './watchList.reducer';
-import { MoviesState } from '../interfaces/movie.state';
+import { watchlistReducer } from './watchList.reducer';
+import { IMoviesState } from '../interfaces/movie.state';
+import { IWatchlistState } from '../interfaces/watchlist.state';
 
 export interface IAppState {
-	movies: MoviesState;
-	watchlist: ReadonlyArray<IMovie>;
+	movies: IMoviesState;
+	watchlist: IWatchlistState;
 }
 
 export const appReducers: ActionReducerMap<IAppState> = {
 	movies: moviesReducer,
-	watchlist: watchListReducer
+	watchlist: watchlistReducer
 };

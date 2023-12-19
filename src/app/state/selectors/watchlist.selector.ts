@@ -1,12 +1,12 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { IMovie } from 'src/app/interfaces/movie';
+import { IWatchlistState } from '../interfaces/watchlist.state';
 
-const selectWatchlistFeature = createFeatureSelector<ReadonlyArray<IMovie>>('watchlist');
+const selectWatchlistFeature = createFeatureSelector<IWatchlistState>('watchlist');
 
 /**
  * @returns Returns the list of watchlist movies.
  */
-export const selectWatchlist = createSelector(selectWatchlistFeature, (state: ReadonlyArray<IMovie>) => state);
+export const selectWatchlist = createSelector(selectWatchlistFeature, (state: IWatchlistState) => state);
 
 /**
  * Checks if a movie is in the watchlist.
@@ -14,6 +14,6 @@ export const selectWatchlist = createSelector(selectWatchlistFeature, (state: Re
  * @returns Returns true if the movie is in the watchlist; otherwise, returns false.
  */
 export const isMovieInWatchList = (movieId: number) =>
-	createSelector(selectWatchlist, (watchlist: ReadonlyArray<IMovie>) => {
-		return watchlist.some((item) => item.id === movieId);
+	createSelector(selectWatchlist, (watchlistState: IWatchlistState) => {
+		return watchlistState.watchlist.some((item) => item.id === movieId);
 	});

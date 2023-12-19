@@ -1,7 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable, catchError, delay, of } from 'rxjs';
-import { moviesList } from '../mocks/movies';
-import { IMovie, IMovieDetails } from '../interfaces/movie';
+import { Observable, catchError, delay, map, of } from 'rxjs';
+import { IMovie, IMovieDetails, IMoviesResponse } from '../interfaces/movie';
 import { environment } from 'src/environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 
@@ -15,10 +14,10 @@ export class MovieService {
 	 * Retrieves a list of movies after 1 second.
 	 * @returns Observable emitting the list of movies or an empty list in case of error.
 	 */
-	getMovies(): Observable<IMovie[]> {
+	getMovies(): Observable<ReadonlyArray<IMovie>> {
 		const currentYear = new Date().getFullYear();
 		const url = `${environment.MOVIES_ENDPOINT}/discover/movie?api_key=${environment.MOVIES_API_KEY}&primary_release_year=${currentYear}&sort_by=popularity.desc&page=1`;
-		return this.http.get<IMovie[]>(url);
+		return this.http.get<IMoviesResponse>(url).pipe(map((resp) => resp.results));
 		// return of<IMovie[]>(moviesList).pipe(delay(1000), catchError(this.handleError<IMovie[]>([])));
 	}
 
