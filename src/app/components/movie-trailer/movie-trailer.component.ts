@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Signal, computed, inject } from '@angular/core';
+import { Component, Input, OnInit, Signal, WritableSignal, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { IMovie } from 'src/app/interfaces/movie';
@@ -12,36 +12,43 @@ import { environment } from 'src/environments/environment.development';
 	styleUrls: ['./movie-trailer.component.scss']
 })
 export class MovieTrailerComponent implements OnInit {
-	@Input() movie!: IMovie | null;
+	@Input({ required: true }) movie!: IMovie;
 	@Input() expanded: boolean = false;
 	@Input() autoplay: boolean = false;
 	@Input() loop: boolean = false;
 	@Input() mute: boolean = false;
 	@Input() controls: boolean = true;
 
-	youtubeMovieTrailerUrl!: Signal<Promise<SafeResourceUrl>>;
+	isLoadingTrailer: WritableSignal<boolean> = signal(true);
+	youtubeMovieTrailerUrl: WritableSignal<SafeResourceUrl> = signal('');
+	movieThumbnail!: Signal<string>;
 
 	private readonly _sanitizer: DomSanitizer = inject(DomSanitizer);
 
 	ngOnInit(): void {
-		this.youtubeMovieTrailerUrl = computed(async () => this.getYouTubeMovieTrailerUrl());
+		this.getYouTubeMovieTrailerUrl();
+		this.movieThumbnail = computed(
+			() => `${environment.MOVIES_IMAGES_ENDPOINT}/t/p/original/${this.movie?.poster_path}`
+		);
 	}
 
 	/**
 	 * Retrieves the secure YouTube movie trailer URL with configurable options.
 	 * @returns Secure URL of the YouTube movie trailer with playback options.
 	 */
-	async getYouTubeMovieTrailerUrl(): Promise<SafeResourceUrl> {
+	async getYouTubeMovieTrailerUrl(): Promise<void> {
 		const videoId = await this.getYoutubeMovieTrailerId();
+
 		const enableAutoPlay = this.autoplay ? 1 : 0;
 		const enableMute = this.mute ? 1 : 0;
 		const enableLoop = this.loop ? 1 : 0;
 		const enableControls = this.controls ? 1 : 0;
 		if (videoId) {
 			const url = `https://www.youtube.com/embed/${videoId}?autoplay=${enableAutoPlay}&mute=${enableMute}&loop=${enableLoop}&playlist=${videoId}&controls=${enableControls}&modestbranding=0&showinfo=0`;
-			return this._sanitizer.bypassSecurityTrustResourceUrl(url);
+			const trailerURL = this._sanitizer.bypassSecurityTrustResourceUrl(url);
+			this.youtubeMovieTrailerUrl.set(trailerURL);
 		}
-		return '';
+		this.isLoadingTrailer.set(false);
 	}
 
 	/**

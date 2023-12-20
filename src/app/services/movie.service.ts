@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Observable, catchError, delay, map, of } from 'rxjs';
 import { IMovie, IMovieDetails, IMoviesResponse } from '../interfaces/movie';
 import { environment } from 'src/environments/environment.development';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
 	providedIn: 'root'
@@ -11,24 +11,33 @@ export class MovieService {
 	private readonly http: HttpClient = inject(HttpClient);
 
 	/**
-	 * Retrieves a list of movies after 1 second.
+	 * Retrieves a list of movies.
 	 * @returns Observable emitting the list of movies or an empty list in case of error.
 	 */
 	getMovies(): Observable<ReadonlyArray<IMovie>> {
 		const currentYear = new Date().getFullYear();
-		const url = `${environment.MOVIES_ENDPOINT}/discover/movie?api_key=${environment.MOVIES_API_KEY}&primary_release_year=${currentYear}&sort_by=popularity.desc&page=1`;
-		return this.http.get<IMoviesResponse>(url).pipe(map((resp) => resp.results));
+		const url = `${environment.MOVIES_ENDPOINT}/discover/movie`;
+		const params = new HttpParams()
+			.set('api_key', environment.MOVIES_API_KEY)
+			.set('language', 'en-US')
+			.set('primary_release_year', currentYear)
+			.set('sort_by', 'popularity.desc')
+			.set('page', 1);
+
+		return this.http.get<IMoviesResponse>(url, { params }).pipe(map((resp) => resp.results));
 		// return of<IMovie[]>(moviesList).pipe(delay(1000), catchError(this.handleError<IMovie[]>([])));
 	}
 
 	/**
-	 * Retrieves a movie by its ID after 1 second.
+	 * Retrieves a movie by its ID.
 	 * @param movieId Identifier of the movie to retrieve.
 	 * @returns Observable that emits the movie corresponding to the ID or null if not found.
 	 */
 	getMovieById(movieId: number): Observable<IMovieDetails | null> {
-		const movie = [].find((item: any) => item.id === movieId) || null;
-		return of<IMovieDetails | null>(movie).pipe(delay(1000), catchError(this.handleError<null>(null)));
+		const url = `${environment.MOVIES_ENDPOINT}/movie/${movieId}?api_key=${environment.MOVIES_API_KEY}`;
+		return this.http.get<IMovieDetails>(url).pipe(catchError(this.handleError<null>(null)));
+		// const movie = [].find((item: any) => item.id === movieId) || null;
+		// return of<IMovieDetails | null>(movie).pipe(delay(1000), catchError(this.handleError<null>(null)));
 	}
 
 	/**
@@ -37,11 +46,43 @@ export class MovieService {
 	 * @param genres List of genres to filter the movies.
 	 * @returns Observable emitting the list of movies by genre excluding the specified movies, or an empty list in case of error.
 	 */
-	getMoviesByGenre(movieIds: number[], genres: string[]): Observable<IMovie[]> {
-		const movies = [].filter((movie: any) =>
-			genres.some((genre) => movie.title.includes(genre) && !movieIds.includes(movie.id))
+	getMoviesByGenre(movieIds: number[], genreId: number): Observable<ReadonlyArray<IMovie>> {
+		const currentYear = new Date().getFullYear();
+		const url = `${environment.MOVIES_ENDPOINT}/discover/movie`;
+		const params = new HttpParams()
+			.set('api_key', environment.MOVIES_API_KEY)
+			.set('with_genres', genreId)
+			.set('primary_release_year', currentYear)
+			.set('sort_by', 'popularity.desc')
+			.set('page', 1);
+
+		return this.http
+			.get<ReadonlyArray<IMovie>>(url, { params })
+			.pipe(catchError(this.handleError<ReadonlyArray<IMovie>>([])));
+		// const movies = [].filter((movie: any) =>
+		// 	genres.some((genre) => movie.title.includes(genre) && !movieIds.includes(movie.id))
+		// );
+		// return of<IMovie[]>(movies).pipe(delay(1000), catchError(this.handleError<IMovie[]>([])));
+	}
+
+	/**
+	 * Retrieves movies by genre excluding a specific movies by its IDs.
+	 * @param movieIds Identifier of the movies to exclude.
+	 * @param genres List of genres to filter the movies.
+	 * @returns Observable emitting the list of movies by genre excluding the specified movies, or an empty list in case of error.
+	 */
+	getSimilarMovies(movieId: number): Observable<ReadonlyArray<IMovie>> {
+		const url = `${environment.MOVIES_ENDPOINT}/movie/${movieId}/similar`;
+		const params = new HttpParams().set('api_key', environment.MOVIES_API_KEY).set('language', 'en-US').set('page', 1);
+
+		return this.http.get<IMoviesResponse>(url, { params }).pipe(
+			map((resp) => resp.results),
+			catchError(this.handleError<ReadonlyArray<IMovie>>([]))
 		);
-		return of<IMovie[]>(movies).pipe(delay(1000), catchError(this.handleError<IMovie[]>([])));
+		// const movies = [].filter((movie: any) =>
+		// 	genres.some((genre) => movie.title.includes(genre) && !movieIds.includes(movie.id))
+		// );
+		// return of<IMovie[]>(movies).pipe(delay(1000), catchError(this.handleError<IMovie[]>([])));
 	}
 
 	/**
@@ -77,13 +118,10 @@ export class MovieService {
 		};
 	}
 
-	/**
-	 * Calculates the movie rating based on a scale of 10 and converts it to a scale of 5,
-	 * which is achieved by dividing the movie rating by two.
-	 * @param movie Movie for which the rating is to be obtained.
-	 * @returns Movie Rating / 2.
-	 */
-	getMovieRating(movie: IMovie): number {
-		return movie.vote_average / 2;
+	getFormatedMovieDuration(value: number): string {
+		const hours = Math.floor(value / 60);
+		const minutes = value % 60;
+
+		return `${hours}h ${minutes}m`;
 	}
 }

@@ -1,10 +1,11 @@
 <iframe
+	*ngIf="!isLoadingTrailer()"
 	[ngClass]="[
 		expanded
 			? 'w-full h-[56.25vw] max-sm:h-[80vw] min-h-[360px] brightness-[60%] transition duration-500 pointer-events-none'
 			: 'w-full aspect-[3/2] max-h-[650px] rounded-2xl'
 	]"
-	[src]="youtubeMovieTrailerUrl() | async"
+	[src]="youtubeMovieTrailerUrl()"
 	frameborder="0"
 	allow="autoplay; fullscreen"
 	allowfullscreen
@@ -12,10 +13,13 @@
 	height="100%"
 >
 </iframe>
-<picture>
-	<img
-		src="
-	"
-		alt=""
-	/>
+<picture
+	*ngIf="isLoadingTrailer()"
+	[ngClass]="[
+		expanded
+			? 'w-full h-[56.25vw] max-sm:h-[80vw] min-h-[360px] brightness-[60%] transition duration-500 pointer-events-none'
+			: 'w-full aspect-[3/2] max-h-[650px] rounded-2xl'
+	]"
+>
+	<img [src]="movieThumbnail()" [alt]="movie.id" class="w-full h-full object-fill" />
 </picture>

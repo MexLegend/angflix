@@ -24,7 +24,7 @@ export interface IMovie {
 
 export interface IMovieDetails extends IMovie {
 	budget: number;
-	genres: Genre[];
+	genres: IGenre[];
 	imdb_id: string;
 	revenue: number;
 	runtime: number;
@@ -32,7 +32,7 @@ export interface IMovieDetails extends IMovie {
 	tagline: string;
 }
 
-export interface Genre {
+export interface IGenre {
 	id: number;
 	name: string;
 }

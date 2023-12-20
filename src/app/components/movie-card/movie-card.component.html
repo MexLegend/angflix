@@ -34,7 +34,7 @@
 			</h4>
 			<div class="flex gap-2">
 				<time class="text-white/80 text-sm">{{ movieDate() | date : 'dd/MM/yyyy' }}</time>
-				<app-rating-stars [initialStars]="movie.vote_average" [wholeStars]="false" />
+				<app-rating-stars [initialStars]="movie.vote_average / 2" [wholeStars]="false" />
 			</div>
 		</div>
 		<app-watchlist-button class="mx-auto" [movie]="movie" [isInWatchList]="isMovieInWatchList()" />

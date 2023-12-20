@@ -13,7 +13,7 @@
 			[movies]="moviesState().movies"
 		/>
 		<app-category-section
-			[isLoading]="watchListState().loading"
+			*ngIf="watchListState().watchlist.length"
 			title="Watchlist"
 			[movies]="watchListState().watchlist"
 		/>

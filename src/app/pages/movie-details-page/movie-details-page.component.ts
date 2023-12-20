@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ContainerComponent } from 'src/app/components/container/container.component';
 import { MovieTrailerComponent } from 'src/app/components/movie-trailer/movie-trailer.component';
 import { MovieService } from '../../services/movie.service';
-import { IMovie, IMovieDetails } from 'src/app/interfaces/movie';
+import { IGenre, IMovie, IMovieDetails } from 'src/app/interfaces/movie';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MovieDetailsComponent } from './components/movie-details/movie-details.component';
@@ -26,6 +26,7 @@ import { NoResultsFoundMessageComponent } from 'src/app/components/no-results-fo
 })
 export class MovieDetailsPageComponent implements OnInit, OnDestroy {
 	routerParamsSub$?: Subscription;
+	isLoading: WritableSignal<boolean> = signal(true);
 	movie: WritableSignal<IMovieDetails | null> = signal(null);
 	genreRelatedMovies: WritableSignal<ReadonlyArray<IMovie>> = signal([]);
 
@@ -60,27 +61,30 @@ export class MovieDetailsPageComponent implements OnInit, OnDestroy {
 			if (movieReponse) {
 				// Set the'movie' value with the "movieReponse" using WritableSignal's set method
 				this.movie.set(movieReponse);
-				// Get a list of movies that matches any of the "movieReponse" genres
-				this.getMoviesByGenre(movieReponse.id, []);
+				// Get a list of similar movies from the current movie
+				this.getSimilarMovies(movieReponse.id, movieReponse.genres);
 			} else {
 				console.log('Movie not found');
 			}
+			this.isLoading.set(false);
 			getMovieByIdSub$.unsubscribe();
 		});
 	};
 
 	/**
-	 * Fetches movies related to a specific genre based on provided movie ID and genre array.
-	 * Uses the movie service to retrieve movies related to the given genre and provided movie ID.
+	 * Fetches movies related to a movie ID.
+	 * Uses the movie service to retrieve movies related to the given movie ID.
 	 * Sets the obtained genre-related movies in the 'genreRelatedMovies' property.
 	 * Unsubscribes from the subscription to prevent memory leaks
-	 * @param movieId The ID of the movie used to filter related movies by genre.
-	 * @param genres An array of genres used to filter movies.
+	 * @param movieId The ID of the movie used to get the related movies.
 	 */
-	getMoviesByGenre(movieId: number, genres: string[]) {
+	getSimilarMovies(movieId: number, genres: IGenre[]) {
+		const genresIds = genres.map((item) => item.id);
 		const getMoviesByGenreSub$ = this._movieService
-			.getMoviesByGenre([movieId], genres)
+			.getSimilarMovies(movieId)
 			.subscribe((genreRelatedMoviesResponse) => {
+				console.log(genreRelatedMoviesResponse);
+				
 				this.genreRelatedMovies.set(genreRelatedMoviesResponse);
 				getMoviesByGenreSub$.unsubscribe();
 			});

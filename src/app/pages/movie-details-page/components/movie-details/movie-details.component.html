@@ -6,13 +6,13 @@
 		<h4 class="text-white text-4xl font-bold mb-3 max-sm:text-center">{{ movie.title }}</h4>
 		<div class="flex gap-5 place-items-center-center max-sm:flex-col max-sm:items-center">
 			<div class="flex items-center gap-2 z-10">
-				<app-rating-stars class="mt-[2px]" [initialStars]="movie.vote_average" [wholeStars]="false" />
+				<app-rating-stars class="mt-[2px]" [initialStars]="movie.vote_average / 2" [wholeStars]="false" />
 				<span class="text-fuchsia-200 text-xl font-bold">{{ movie.vote_average | number : '1.1' }}</span>
 			</div>
 			<app-watchlist-button [movie]="movie" [isInWatchList]="isMovieInWatchList()" />
 		</div>
 		<p class="text-white/80 text max-sm:text-center">{{ movie.overview }}</p>
-		<app-movie-details-tag label="Duration" [description]="movie.runtime.toString()" />
+		<app-movie-details-tag label="Duration" [description]="movieDuration()" />
 		<app-movie-details-tag label="Released Date" [description]="movie.release_date" />
 		<app-movie-details-tag label="Genre" [description]="movieGenres()" />
 	</div>
