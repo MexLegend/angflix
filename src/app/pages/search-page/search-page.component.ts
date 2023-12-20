@@ -18,7 +18,7 @@ import { NoResultsFoundMessageComponent } from 'src/app/components/no-results-fo
 export class SearchPageComponent implements OnInit, OnDestroy {
 	routerParamsSub$?: Subscription;
 	searchMovieLabel: WritableSignal<string> = signal('');
-	movies: WritableSignal<IMovie[]> = signal([]);
+	movies: WritableSignal<ReadonlyArray<IMovie>> = signal([]);
 
 	private readonly _movieService: MovieService = inject(MovieService);
 	private readonly _route: ActivatedRoute = inject(ActivatedRoute);

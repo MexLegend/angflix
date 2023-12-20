@@ -83,8 +83,6 @@ export class MovieDetailsPageComponent implements OnInit, OnDestroy {
 		const getMoviesByGenreSub$ = this._movieService
 			.getSimilarMovies(movieId)
 			.subscribe((genreRelatedMoviesResponse) => {
-				console.log(genreRelatedMoviesResponse);
-				
 				this.genreRelatedMovies.set(genreRelatedMoviesResponse);
 				getMoviesByGenreSub$.unsubscribe();
 			});

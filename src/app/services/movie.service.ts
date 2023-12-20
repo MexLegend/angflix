@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable, catchError, delay, map, of } from 'rxjs';
+import { Observable, catchError, delay, forkJoin, map, mergeMap, of } from 'rxjs';
 import { IMovie, IMovieDetails, IMoviesResponse } from '../interfaces/movie';
 import { environment } from 'src/environments/environment.development';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -90,9 +90,21 @@ export class MovieService {
 	 * @param movieTitle The title used to filter movies.
 	 * @returns Observable of movies filtered by the provided title or an empty list in case of error.
 	 */
-	getMoviesByTitle(movieTitle: string): Observable<IMovie[]> {
-		const movies = [].filter((movie: any) => movie.title.toLocaleLowerCase().includes(movieTitle.toLocaleLowerCase()));
-		return of<IMovie[]>(movies).pipe(delay(1000), catchError(this.handleError<IMovie[]>([])));
+	getMoviesByTitle(movieTitle: string): Observable<ReadonlyArray<IMovie>> {
+		const url = `${environment.MOVIES_ENDPOINT}/search/movie`;
+		const params = new HttpParams()
+			.set('api_key', environment.MOVIES_API_KEY)
+			.set('language', 'en-US')
+			.set('query', movieTitle)
+			.set('sort_by', 'release_date.desc')
+			.set('page', 1);
+
+		return this.http.get<IMoviesResponse>(url, { params }).pipe(
+			map((resp) => resp.results),
+			catchError(this.handleError<ReadonlyArray<IMovie>>([]))
+		);
+		// const movies = [].filter((movie: any) => movie.title.toLocaleLowerCase().includes(movieTitle.toLocaleLowerCase()));
+		// return of<IMovie[]>(movies).pipe(delay(1000), catchError(this.handleError<IMovie[]>([])));
 	}
 
 	/**
@@ -101,9 +113,18 @@ export class MovieService {
 	 * @param movieIds An array of movie IDs used to filter the moviesList.
 	 * @returns An observable emitting movies filtered by the provided IDs or an empty array in case of an error.
 	 */
-	getMoviesByWatchList(movieIds: number[]): Observable<IMovie[]> {
-		const watchListMovies = [].filter((movie: any) => movieIds.some((watchListMovie) => watchListMovie === movie.id));
-		return of<IMovie[]>(watchListMovies).pipe(delay(1000), catchError(this.handleError<IMovie[]>([])));
+	getMoviesByWatchList(movieIds: number[]): Observable<ReadonlyArray<IMovie>> {
+		const requests = movieIds.map((movieId) => {
+			const url = `${environment.MOVIES_ENDPOINT}/movie/${movieId}`;
+			const params = new HttpParams().set('api_key', environment.MOVIES_API_KEY).set('language', 'en-US');
+
+			return this.http.get<IMovie>(url, { params });
+		});
+
+		return forkJoin(requests).pipe(catchError(this.handleError<ReadonlyArray<IMovie>>([])));
+
+		// const watchListMovies = [].filter((movie: any) => movieIds.some((watchListMovie) => watchListMovie === movie.id));
+		// return of<IMovie[]>(watchListMovies).pipe(delay(1000), catchError(this.handleError<IMovie[]>([])));
 	}
 
 	/**
