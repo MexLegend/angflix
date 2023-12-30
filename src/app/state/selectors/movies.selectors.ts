@@ -1,9 +1,11 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { IMoviesState } from '../interfaces/movie.state';
+import { IMoviesSearchState, IMoviesState } from '../interfaces/movie.state';
 
-const selectMoviesFeature = createFeatureSelector<IMoviesState>('movies');
+const selectMoviesListFeature = createFeatureSelector<IMoviesState>('movies');
 
-export const selectMovies = createSelector(selectMoviesFeature, (state: IMoviesState) => state);
+const selectMoviesSearchFeature = createFeatureSelector<IMoviesSearchState>('moviesSearch');
+
+export const selectMovies = createSelector(selectMoviesListFeature, (state: IMoviesState) => state);
 
 export const selectRandomMovie = createSelector(selectMovies, (moviesState: IMoviesState) => {
 	const { movies } = moviesState;
@@ -12,3 +14,5 @@ export const selectRandomMovie = createSelector(selectMovies, (moviesState: IMov
 
 	return movies[randomIndex];
 });
+
+export const selectMoviesSearch = createSelector(selectMoviesSearchFeature, (state: IMoviesSearchState) => state);

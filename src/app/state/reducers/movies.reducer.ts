@@ -1,16 +1,16 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { IMoviesState } from '../interfaces/movie.state';
-import { MoviesApiActions } from '../actions/movies.actions';
+import { IMoviesSearchState, IMoviesState } from '../interfaces/movie.state';
+import { MoviesApiActions, MoviesSearchActions } from '../actions/movies.actions';
 
-export const initialState: IMoviesState = {
+export const initialMoviesListState: IMoviesState = {
 	movies: [],
 	loading: false,
 	error: null
 };
 
 export const moviesReducer = createReducer(
-	initialState,
+	initialMoviesListState,
 	on(MoviesApiActions.loadMovies, (state) => ({
 		...state,
 		loading: true,
@@ -28,4 +28,33 @@ export const moviesReducer = createReducer(
 		error
 	}))
 );
+
+export const initialMoviesSearchState: IMoviesSearchState = {
+	movieTitle: "",
+	movies: [],
+	loading: false,
+	error: null
+};
+
+export const moviesSearchReducer = createReducer(
+	initialMoviesSearchState,
+	on(MoviesSearchActions.searchMovies, (state, { movieTitle }) => ({
+		...state,
+		movieTitle,
+		loading: true,
+		error: null
+	})),
+	on(MoviesSearchActions.searchMoviesSuccess, (state, { movies }) => ({
+		...state,
+		movies,
+		loading: false
+	})),
+	on(MoviesSearchActions.searchMoviesFailure, (state, { error }) => ({
+		...state,
+		movies: [],
+		loading: false,
+		error
+	}))
+);
+
 

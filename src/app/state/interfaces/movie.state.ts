@@ -5,3 +5,10 @@ export interface IMoviesState {
 	loading: boolean;
 	error: string | null;
 }
+
+export interface IMoviesSearchState {
+	movieTitle: string;
+	movies: ReadonlyArray<IMovie>;
+	loading: boolean;
+	error: string | null;
+}

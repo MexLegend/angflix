@@ -1,26 +1,30 @@
-import { Component, OnDestroy, OnInit, WritableSignal, inject, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, Signal, WritableSignal, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContainerComponent } from 'src/app/components/container/container.component';
 import { CategorySectionComponent } from 'src/app/components/category-section/category-section.component';
-import { MovieService } from 'src/app/services/movie.service';
-import { IMovie } from 'src/app/interfaces/movie';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { NoResultsFoundMessageComponent } from 'src/app/components/no-results-found-message/no-results-found-message.component';
+import { selectMoviesSearch } from 'src/app/state/selectors/movies.selectors';
+import { Store } from '@ngrx/store';
+import { IMoviesSearchState } from 'src/app/state/interfaces/movie.state';
+import { MoviesSearchActions } from 'src/app/state/actions/movies.actions';
+import { LoaderComponent } from 'src/app/components/loader/loader.component';
 
 @Component({
 	selector: 'app-search-page',
 	standalone: true,
-	imports: [CommonModule, ContainerComponent, CategorySectionComponent, NoResultsFoundMessageComponent],
+	imports: [CommonModule, ContainerComponent, CategorySectionComponent, NoResultsFoundMessageComponent, LoaderComponent],
 	templateUrl: './search-page.component.html',
 	styleUrls: ['./search-page.component.scss']
 })
 export class SearchPageComponent implements OnInit, OnDestroy {
+	private readonly _store: Store = inject(Store);
+
 	routerParamsSub$?: Subscription;
 	searchMovieLabel: WritableSignal<string> = signal('');
-	movies: WritableSignal<ReadonlyArray<IMovie>> = signal([]);
+	moviesState: Signal<IMoviesSearchState> = this._store.selectSignal(selectMoviesSearch);
 
-	private readonly _movieService: MovieService = inject(MovieService);
 	private readonly _route: ActivatedRoute = inject(ActivatedRoute);
 
 	ngOnInit(): void {
@@ -49,9 +53,6 @@ export class SearchPageComponent implements OnInit, OnDestroy {
 	}
 
 	getMoviesByTitle(movieTitle: string) {
-		const getMoviesByTitleSub$ = this._movieService.getMoviesByTitle(movieTitle).subscribe((movies) => {
-			this.movies.set(movies);
-			getMoviesByTitleSub$.unsubscribe();
-		});
+		this._store.dispatch(MoviesSearchActions.searchMovies({ movieTitle }));
 	}
 }

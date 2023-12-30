@@ -9,6 +9,15 @@ export const MoviesActions = createActionGroup({
 	}
 });
 
+export const MoviesSearchActions = createActionGroup({
+	source: 'Movies Search',
+	events: {
+		'Search Movies': props<{ movieTitle: string }>(),
+		'Search Movies Success': props<{ movies: ReadonlyArray<IMovie> }>(),
+		'Search Movies Failure': props<{ error: string }>()
+	}
+});
+
 export const MoviesApiActions = createActionGroup({
 	source: 'Movies API',
 	events: {

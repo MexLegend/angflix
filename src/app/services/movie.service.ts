@@ -111,9 +111,12 @@ export class MovieService {
 	 * Retrieves movies based on the provided list of movie IDs.
 	 * Filters movies from the moviesList based on the movie IDs provided and returns them as an observable.
 	 * @param movieIds An array of movie IDs used to filter the moviesList.
-	 * @returns An observable emitting movies filtered by the provided IDs or an empty array in case of an error.
+	 * @returns An observable emitting movies filtered by the provided IDs 
+	 * or an empty array in case of movieIds is empty or an error occurs.
 	 */
 	getMoviesByWatchList(movieIds: number[]): Observable<ReadonlyArray<IMovie>> {
+		if (!movieIds.length) return of([]);
+
 		const requests = movieIds.map((movieId) => {
 			const url = `${environment.MOVIES_ENDPOINT}/movie/${movieId}`;
 			const params = new HttpParams().set('api_key', environment.MOVIES_API_KEY).set('language', 'en-US');
@@ -123,8 +126,6 @@ export class MovieService {
 
 		return forkJoin(requests).pipe(catchError(this.handleError<ReadonlyArray<IMovie>>([])));
 
-		// const watchListMovies = [].filter((movie: any) => movieIds.some((watchListMovie) => watchListMovie === movie.id));
-		// return of<IMovie[]>(watchListMovies).pipe(delay(1000), catchError(this.handleError<IMovie[]>([])));
 	}
 
 	/**

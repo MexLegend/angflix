@@ -1,6 +1,5 @@
 import { Component, Signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IMovie } from 'src/app/interfaces/movie';
 import { ContainerComponent } from 'src/app/components/container/container.component';
 import { CategorySectionComponent } from 'src/app/components/category-section/category-section.component';
 import { NoResultsFoundMessageComponent } from 'src/app/components/no-results-found-message/no-results-found-message.component';
