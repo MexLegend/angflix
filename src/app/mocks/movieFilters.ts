@@ -2,23 +2,23 @@ import { IMovieFilter } from '../interfaces/movie-filter';
 
 export const movieFilters: IMovieFilter[] = [
   {
-    key: 'Title',
+    key: 'A - Z',
     value: 'title',
     asc: true,
   },
   {
-    key: 'Release Date',
-    value: 'releasedDate',
+    key: 'Newest - Oldest',
+    value: 'release_date',
     asc: false,
   },
   {
-    key: 'Z to A',
+    key: 'Z - A',
     value: 'title',
     asc: false,
   },
   {
-    key: 'Oldest to Newest',
-    value: 'releasedDate',
+    key: 'Oldest - Newest',
+    value: 'release_date',
     asc: true,
   },
 ];
