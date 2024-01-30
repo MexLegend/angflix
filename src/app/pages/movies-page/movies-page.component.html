@@ -1,21 +1,30 @@
 <section class="flex flex-col w-full">
-	<app-hero *ngIf="!moviesState().loading" />
-	<ng-container *ngIf="moviesState().loading">
-		<div class="flex items-center justify-center w-full h-[56.25vw] max-sm:h-[80vw] sm:h-screen min-h-[360px]">
-			<app-loader label="Loading..." />
-		</div>
-	</ng-container>
-	<app-container class="mb-12">
-		<app-category-section
-			[isLoading]="moviesState().loading"
-			title="Trending Now"
-			[showSortSelect]="true"
-			[movies]="moviesState().movies"
-		/>
-		<app-category-section
-			*ngIf="watchListState().watchlist.length"
-			title="Watchlist"
-			[movies]="watchListState().watchlist"
-		/>
-	</app-container>
+  <app-hero *ngIf="!moviesState().loading || moviesState().movies.length" />
+  <ng-container *ngIf="moviesState().loading && !moviesState().movies.length">
+    <div
+      class="flex items-center justify-center w-full h-[56.25vw] max-sm:h-[80vw] sm:h-screen min-h-[360px]"
+    >
+      <app-loader label="Loading..." />
+    </div>
+  </ng-container>
+  <app-container class="mb-12">
+    <app-category-section
+      [isLoading]="moviesState().loading && !moviesState().movies.length"
+      title="Trending Now"
+      [showSortSelect]="true"
+      [movies]="moviesState().movies"
+    />
+    <div #endMoviesSection></div>
+    <div
+      *ngIf="moviesState().loading"
+      class="flex items-center justify-center h-full my-8"
+    >
+      <app-loader />
+    </div>
+    <app-category-section
+      *ngIf="watchListState().watchlist.length"
+      title="Watchlist"
+      [movies]="watchListState().watchlist"
+    />
+  </app-container>
 </section>

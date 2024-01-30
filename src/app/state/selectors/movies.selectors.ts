@@ -3,16 +3,36 @@ import { IMoviesSearchState, IMoviesState } from '../interfaces/movie.state';
 
 const selectMoviesListFeature = createFeatureSelector<IMoviesState>('movies');
 
-const selectMoviesSearchFeature = createFeatureSelector<IMoviesSearchState>('moviesSearch');
+const selectMoviesSearchFeature =
+  createFeatureSelector<IMoviesSearchState>('moviesSearch');
 
-export const selectMovies = createSelector(selectMoviesListFeature, (state: IMoviesState) => state);
+export const selectMovies = createSelector(
+  selectMoviesListFeature,
+  (state: IMoviesState) => state
+);
 
-export const selectRandomMovie = createSelector(selectMovies, (moviesState: IMoviesState) => {
-	const { movies } = moviesState;
-	const moviesCount = movies.length;
-	const randomIndex = Math.floor(Math.random() * moviesCount);
+export const selectCurrentPage = createSelector(
+  selectMovies,
+  (moviesState: IMoviesState) => moviesState.page
+);
 
-	return movies[randomIndex];
-});
+export const selectRandomMovie = createSelector(
+  selectMovies,
+  (moviesState: IMoviesState) => {
+    const { movies } = moviesState;
+    const moviesCount = movies.length;
+    const randomIndex = Math.floor(Math.random() * moviesCount);
 
-export const selectMoviesSearch = createSelector(selectMoviesSearchFeature, (state: IMoviesSearchState) => state);
+    return movies[randomIndex];
+  }
+);
+
+export const selectCurrentSearchPage = createSelector(
+  selectMoviesSearchFeature,
+  (moviesSearchState: IMoviesSearchState) => moviesSearchState.page
+);
+
+export const selectMoviesSearch = createSelector(
+  selectMoviesSearchFeature,
+  (moviesSearchState: IMoviesSearchState) => moviesSearchState
+);

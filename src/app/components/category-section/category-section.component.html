@@ -1,24 +1,38 @@
 <section class="flex flex-col w-full gap-2 mt-10">
-	<div
-		class="flex w-full justify-between items-center mb-4 max-sm:justify-center max-sm:gap-5 max-sm:flex-col-reverse">
-		<ng-container *ngIf="!isLoading && movies.length">
-			<h4 class="text-white text-3xl font-semibold font-roboto-slab tracking-wide max-sm:leading-none">
-				{{ title }}
-			</h4>
-		</ng-container>
-		<ng-container *ngIf="isLoading">
-			<ngx-skeleton-loader animation="pulse" appearance="custom-content">
-				<div class="bg-fuchsia-600/20 w-60 h-7 rounded-full"></div>
-			</ngx-skeleton-loader>
-		</ng-container>
-		<app-movie-filters *ngIf="showSortSelect && !isLoading && movies.length" class="flex" [moviesList]="movies" />
-	</div>
-	<div class="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4">
-		<ng-container *ngIf="!isLoading && movies.length">
-			<app-movie-card class="w-full" [movie]="movie" *ngFor="let movie of movies" />
-		</ng-container>
-		<ng-container *ngIf="isLoading">
-			<app-skeleton-movie-card class="w-full" *ngFor="let movie of dummyMoviesList" />
-		</ng-container>
-	</div>
+  <div
+    class="flex w-full justify-between items-center mb-4 max-sm:justify-center max-sm:gap-5 max-sm:flex-col-reverse"
+  >
+    <ng-container *ngIf="!isLoading && movies.length">
+      <h4
+        class="text-white text-3xl font-semibold font-roboto-slab tracking-wide max-sm:leading-none"
+      >
+        {{ title }}
+      </h4>
+    </ng-container>
+    <ng-container *ngIf="isLoading">
+      <ngx-skeleton-loader animation="pulse" appearance="custom-content">
+        <div class="bg-fuchsia-600/20 w-60 h-7 rounded-full"></div>
+      </ngx-skeleton-loader>
+    </ng-container>
+    <app-movie-filters
+      *ngIf="showSortSelect && !isLoading && movies.length"
+      class="flex"
+      [moviesList]="movies"
+    />
+  </div>
+  <div class="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4">
+    <ng-container *ngIf="!isLoading && movies.length">
+      <app-movie-card
+        class="w-full"
+        [movie]="movie"
+        *ngFor="let movie of movies"
+      />
+    </ng-container>
+    <ng-container *ngIf="isLoading">
+      <app-skeleton-movie-card
+        class="w-full"
+        *ngFor="let movie of dummyMoviesList"
+      />
+    </ng-container>
+  </div>
 </section>

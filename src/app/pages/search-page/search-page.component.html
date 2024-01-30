@@ -1,18 +1,36 @@
 <section class="flex flex-col w-full mt-28 mb-12">
-	<app-container class="mb-12">
-		<ng-container *ngIf="!moviesState().loading">
-			<h4 class="text-white text-3xl font-semibold font-roboto-slab tracking-wide mb-4 max-sm:text-center">
-				{{ searchMovieLabel() }}
-			</h4>
-			<app-category-section *ngIf="moviesState().movies.length" title="" [movies]="moviesState().movies"
-				[showSortSelect]="true" />
-			<app-no-results-found-message class="flex mt-10" *ngIf="!moviesState().movies.length"
-				subtitle="No results found for your search" />
-		</ng-container>
-		<ng-container *ngIf="moviesState().loading">
-			<div class="flex items-center justify-center w-full h-[calc(100vh-16rem)]">
-				<app-loader label="Loading..." />
-			</div>
-		</ng-container>
-	</app-container>
+  <app-container class="mb-12">
+    <ng-container *ngIf="!moviesState().loading || moviesState().movies.length">
+      <h4
+        class="text-white text-3xl font-semibold font-roboto-slab tracking-wide mb-4 max-sm:text-center"
+      >
+        {{ searchMovieLabel() }}
+      </h4>
+      <app-category-section
+        *ngIf="moviesState().movies.length"
+        title=""
+        [movies]="moviesState().movies"
+        [showSortSelect]="true"
+      />
+      <app-no-results-found-message
+        class="flex mt-10"
+        *ngIf="!moviesState().movies.length"
+        subtitle="No results found for your search"
+      />
+    </ng-container>
+    <ng-container *ngIf="moviesState().loading && !moviesState().movies.length">
+      <div
+        class="flex items-center justify-center w-full h-[calc(100vh-16rem)]"
+      >
+        <app-loader label="Loading..." />
+      </div>
+    </ng-container>
+    <div #endMoviesSection></div>
+    <div
+      *ngIf="moviesState().loading"
+      class="flex items-center justify-center h-full my-8"
+    >
+      <app-loader />
+    </div>
+  </app-container>
 </section>
